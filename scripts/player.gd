@@ -5,13 +5,15 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 @onready var skeleton_3d: Skeleton3D = $PhysicsPlayer/RootNode/CharacterArmature/Skeleton3D
+@onready var physical_bone_simulator_3d: PhysicalBoneSimulator3D = $PhysicsPlayer/RootNode/CharacterArmature/Skeleton3D/PhysicalBoneSimulator3D
 
 func _ready():
-	skeleton_3d.physical_bones_start_simulation()
+	physical_bone_simulator_3d.physical_bones_start_simulation()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
+		print(get_gravity())
 		velocity += get_gravity() * delta
 
 	# Handle jump.
