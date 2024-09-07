@@ -1,0 +1,281 @@
+[gd_scene load_steps=15 format=3 uid="uid://cbs5liwmigs80"]
+
+[ext_resource type="PackedScene" uid="uid://dsr6i7i7axvuj" path="res://scenes/metal_shelf.tscn" id="1_cmxeo"]
+[ext_resource type="Script" path="res://scripts/character_body_3d.gd" id="2_srqmr"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="3_svs0m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yvl3d"]
+size = Vector3(1000, 0.001, 1000)
+
+[sub_resource type="Gradient" id="Gradient_wepl2"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5l2qu"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h1x78"]
+color_ramp = SubResource("Gradient_wepl2")
+noise = SubResource("FastNoiseLite_5l2qu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rny7g"]
+albedo_texture = SubResource("NoiseTexture2D_h1x78")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f4kuo"]
+material = SubResource("StandardMaterial3D_rny7g")
+size = Vector2(1000, 1000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p6f80"]
+size = Vector3(250, 0.001, 50)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_s5ult"]
+size = Vector2(250, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5haw"]
+albedo_texture = ExtResource("3_svs0m")
+
+[sub_resource type="BoxMesh" id="BoxMesh_hol2l"]
+material = SubResource("StandardMaterial3D_p5haw")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7cmki"]
+
+[node name="Map" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_yvl3d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_f4kuo")
+
+[node name="Ceiling" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 100, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling"]
+shape = SubResource("BoxShape3D_yvl3d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ceiling"]
+gi_mode = 0
+mesh = SubResource("PlaneMesh_f4kuo")
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="Wall1" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 25, -125)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall1"]
+shape = SubResource("BoxShape3D_p6f80")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall1"]
+mesh = SubResource("PlaneMesh_s5ult")
+
+[node name="Wall2" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 25, 125)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall2"]
+shape = SubResource("BoxShape3D_p6f80")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall2"]
+mesh = SubResource("PlaneMesh_s5ult")
+
+[node name="Wall3" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 125, 25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall3"]
+shape = SubResource("BoxShape3D_p6f80")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall3"]
+mesh = SubResource("PlaneMesh_s5ult")
+
+[node name="Wall4" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, -125, 25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall4"]
+shape = SubResource("BoxShape3D_p6f80")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall4"]
+mesh = SubResource("PlaneMesh_s5ult")
+
+[node name="Aisles" type="Node3D" parent="."]
+
+[node name="AisleA" type="Node3D" parent="Aisles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
+
+[node name="ShelfA1" parent="Aisles/AisleA" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 70, 0, 0)
+
+[node name="ShelfA2" parent="Aisles/AisleA" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 60, 0, 0)
+
+[node name="ShelfA3" parent="Aisles/AisleA" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 0, 0)
+
+[node name="ShelfA4" parent="Aisles/AisleA" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 40, 0, 0)
+
+[node name="ShelfA5" parent="Aisles/AisleA" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 30, 0, 0)
+
+[node name="ShelfA6" parent="Aisles/AisleA" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 20, 0, 0)
+
+[node name="AisleB" type="Node3D" parent="Aisles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
+
+[node name="ShelfB1" parent="Aisles/AisleB" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -10, 0, 0)
+
+[node name="ShelfB2" parent="Aisles/AisleB" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -20, 0, 0)
+
+[node name="ShelfB3" parent="Aisles/AisleB" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -30, 0, 0)
+
+[node name="ShelfB4" parent="Aisles/AisleB" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -40, 0, 0)
+
+[node name="ShelfB5" parent="Aisles/AisleB" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -50, 0, 0)
+
+[node name="ShelfB6" parent="Aisles/AisleB" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -60, 0, 0)
+
+[node name="AisleC" type="Node3D" parent="Aisles"]
+
+[node name="ShelfC1" parent="Aisles/AisleC" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 70, 0, 0)
+
+[node name="ShelfC2" parent="Aisles/AisleC" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 60, 0, 0)
+
+[node name="ShelfC3" parent="Aisles/AisleC" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 0, 0)
+
+[node name="ShelfC4" parent="Aisles/AisleC" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 40, 0, 0)
+
+[node name="ShelfC5" parent="Aisles/AisleC" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 30, 0, 0)
+
+[node name="ShelfC6" parent="Aisles/AisleC" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 20, 0, 0)
+
+[node name="AisleD" type="Node3D" parent="Aisles"]
+
+[node name="ShelfD1" parent="Aisles/AisleD" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -10, 0, 0)
+
+[node name="ShelfD2" parent="Aisles/AisleD" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -20, 0, 0)
+
+[node name="ShelfD3" parent="Aisles/AisleD" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -30, 0, 0)
+
+[node name="ShelfD4" parent="Aisles/AisleD" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -40, 0, 0)
+
+[node name="ShelfD5" parent="Aisles/AisleD" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -50, 0, 0)
+
+[node name="ShelfD6" parent="Aisles/AisleD" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -60, 0, 0)
+
+[node name="AisleE" type="Node3D" parent="Aisles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
+
+[node name="ShelfE1" parent="Aisles/AisleE" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 70, 0, 0)
+
+[node name="ShelfE2" parent="Aisles/AisleE" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 60, 0, 0)
+
+[node name="ShelfE3" parent="Aisles/AisleE" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 0, 0)
+
+[node name="ShelfE4" parent="Aisles/AisleE" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 40, 0, 0)
+
+[node name="ShelfE5" parent="Aisles/AisleE" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 30, 0, 0)
+
+[node name="ShelfE6" parent="Aisles/AisleE" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 20, 0, 0)
+
+[node name="AisleF" type="Node3D" parent="Aisles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
+
+[node name="ShelfF1" parent="Aisles/AisleF" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -10, 0, 0)
+
+[node name="ShelfF2" parent="Aisles/AisleF" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -20, 0, 0)
+
+[node name="ShelfF3" parent="Aisles/AisleF" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -30, 0, 0)
+
+[node name="ShelfF4" parent="Aisles/AisleF" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -40, 0, 0)
+
+[node name="ShelfF5" parent="Aisles/AisleF" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -50, 0, 0)
+
+[node name="ShelfF6" parent="Aisles/AisleF" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -60, 0, 0)
+
+[node name="AisleG" type="Node3D" parent="Aisles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+
+[node name="ShelfG1" parent="Aisles/AisleG" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 70, 0, 0)
+
+[node name="ShelfG2" parent="Aisles/AisleG" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 60, 0, 0)
+
+[node name="ShelfG3" parent="Aisles/AisleG" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 0, 0)
+
+[node name="ShelfG4" parent="Aisles/AisleG" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 40, 0, 0)
+
+[node name="ShelfG5" parent="Aisles/AisleG" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 30, 0, 0)
+
+[node name="ShelfG6" parent="Aisles/AisleG" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 20, 0, 0)
+
+[node name="AisleH" type="Node3D" parent="Aisles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+
+[node name="ShelfH1" parent="Aisles/AisleH" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -10, 0, 0)
+
+[node name="ShelfH2" parent="Aisles/AisleH" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -20, 0, 0)
+
+[node name="ShelfH3" parent="Aisles/AisleH" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -30, 0, 0)
+
+[node name="ShelfH4" parent="Aisles/AisleH" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -40, 0, 0)
+
+[node name="ShelfH5" parent="Aisles/AisleH" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -50, 0, 0)
+
+[node name="ShelfH6" parent="Aisles/AisleH" instance=ExtResource("1_cmxeo")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -60, 0, 0)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 5.21976, 0)
+script = ExtResource("2_srqmr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("BoxMesh_hol2l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("BoxShape3D_7cmki")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(0.2, -6.18172e-09, -2.56056e-09, 6.18172e-09, 0.141421, 0.141421, -2.56055e-09, -0.141421, 0.141421, -0.098208, 3.54295, 5.0553)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14.3766, 0)
+light_energy = 2.97
+sky_mode = 1
