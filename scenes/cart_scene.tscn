@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://y8ppfrrb0cru"]
+
+[ext_resource type="Script" path="res://scripts/free_look_camera.gd" id="1_yco6k"]
+[ext_resource type="PackedScene" uid="uid://cpfr51mnd0peh" path="res://scenes/shopping_cart.tscn" id="2_ndqjn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bnoca"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_st4b3"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7pcb"]
+albedo_color = Color(0.43053, 0.413505, 0.391897, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_moxrw"]
+material = SubResource("StandardMaterial3D_j7pcb")
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8j3kk"]
+size = Vector3(20, 0.1, 20)
+
+[node name="CartScene" type="Node3D"]
+
+[node name="Products" type="Node3D" parent="."]
+
+[node name="Product" type="Node3D" parent="Products"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Products/Product"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58035, 1.0652)
+gravity_scale = 0.4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Products/Product/RigidBody3D"]
+mesh = SubResource("BoxMesh_bnoca")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Products/Product/RigidBody3D"]
+shape = SubResource("BoxShape3D_st4b3")
+metadata/_edit_group_ = true
+
+[node name="Product2" type="Node3D" parent="Products"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.064858, 0.469683, 0.00455952)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Products/Product2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58035, 1.0652)
+gravity_scale = 0.4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Products/Product2/RigidBody3D"]
+mesh = SubResource("BoxMesh_bnoca")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Products/Product2/RigidBody3D"]
+shape = SubResource("BoxShape3D_st4b3")
+metadata/_edit_group_ = true
+
+[node name="Product3" type="Node3D" parent="Products"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0879169, -0.417781, 0.117658)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Products/Product3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58035, 1.0652)
+gravity_scale = 0.4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Products/Product3/RigidBody3D"]
+mesh = SubResource("BoxMesh_bnoca")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Products/Product3/RigidBody3D"]
+shape = SubResource("BoxShape3D_st4b3")
+metadata/_edit_group_ = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.999987, -1.83516e-11, 0.00516618, 0.00361498, 0.714399, 0.699729, -0.00369072, 0.699738, -0.71439, 0.0132258, 2.29225, -0.641892)
+script = ExtResource("1_yco6k")
+
+[node name="Floor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.198458, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("BoxMesh_moxrw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_8j3kk")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.31172, 0)
+light_energy = 10.0
+
+[node name="Cart" parent="." instance=ExtResource("2_ndqjn")]
