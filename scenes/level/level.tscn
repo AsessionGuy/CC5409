@@ -1,28 +1,19 @@
-[gd_scene load_steps=18 format=3 uid="uid://rgsrk5cpujdl"]
+[gd_scene load_steps=12 format=3 uid="uid://rgsrk5cpujdl"]
 
 [ext_resource type="PackedScene" uid="uid://c2qfdmmve21m" path="res://scenes/level/level_components/wooden_shelf.tscn" id="1_335qb"]
+[ext_resource type="Script" path="res://autoloads/level.gd" id="1_qnvri"]
 [ext_resource type="PackedScene" uid="uid://c24l2r35ij2r2" path="res://scenes/level/level_components/metal_shelf.tscn" id="2_g3g6l"]
 [ext_resource type="PackedScene" uid="uid://dkjcqtppbbv7y" path="res://scenes/level/level_components/fridge.tscn" id="3_i81j3"]
-[ext_resource type="Script" path="res://scripts/character_body_3d.gd" id="4_nmdk5"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="5_cnawy"]
+[ext_resource type="Script" path="res://scripts/utils/spawner.gd" id="6_dmb7o"]
 [ext_resource type="PackedScene" uid="uid://tsu1ouljepaf" path="res://scenes/level/level_components/checkout_counter.tscn" id="6_eu0ed"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yvl3d"]
-size = Vector3(1000, 0.001, 1000)
+size = Vector3(1000, 1, 1000)
 
-[sub_resource type="Gradient" id="Gradient_wepl2"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5l2qu"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h1x78"]
-color_ramp = SubResource("Gradient_wepl2")
-noise = SubResource("FastNoiseLite_5l2qu")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rny7g"]
-albedo_texture = SubResource("NoiseTexture2D_h1x78")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vubur"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f4kuo"]
-material = SubResource("StandardMaterial3D_rny7g")
+material = SubResource("StandardMaterial3D_vubur")
 size = Vector2(1000, 1000)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p6f80"]
@@ -31,26 +22,22 @@ size = Vector3(250, 0.001, 50)
 [sub_resource type="PlaneMesh" id="PlaneMesh_s5ult"]
 size = Vector2(250, 50)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5haw"]
-albedo_texture = ExtResource("5_cnawy")
-
-[sub_resource type="BoxMesh" id="BoxMesh_hol2l"]
-material = SubResource("StandardMaterial3D_p5haw")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7cmki"]
-
 [node name="Level" type="Node3D"]
+script = ExtResource("1_qnvri")
 
 [node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_yvl3d")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("PlaneMesh_f4kuo")
 
 [node name="Ceiling" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 100, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 33.0077, 0)
+collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling"]
 shape = SubResource("BoxShape3D_yvl3d")
@@ -63,6 +50,7 @@ mesh = SubResource("PlaneMesh_f4kuo")
 
 [node name="Wall1" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 25, -70)
+collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall1"]
 shape = SubResource("BoxShape3D_p6f80")
@@ -72,6 +60,7 @@ mesh = SubResource("PlaneMesh_s5ult")
 
 [node name="Wall2" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 25, 54)
+collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall2"]
 shape = SubResource("BoxShape3D_p6f80")
@@ -81,6 +70,7 @@ mesh = SubResource("PlaneMesh_s5ult")
 
 [node name="Wall3" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 125, 25, 0)
+collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall3"]
 shape = SubResource("BoxShape3D_p6f80")
@@ -90,6 +80,7 @@ mesh = SubResource("PlaneMesh_s5ult")
 
 [node name="Wall4" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, -90, 25, 0)
+collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall4"]
 shape = SubResource("BoxShape3D_p6f80")
@@ -106,20 +97,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0326, 0, -14.4335)
 
 [node name="WoodenShelfA1" parent="Aisles/AisleA/WoodenShelfA" instance=ExtResource("1_335qb")]
 transform = Transform3D(-5, 0, -7.54979e-07, -3.27463e-07, 4.5052, 2.16869, 6.80266e-07, 2.16869, -4.5052, 40.2906, 0.000499725, 34.6587)
+collision_layer = 3
 
 [node name="WoodenShelfA2" parent="Aisles/AisleA/WoodenShelfA" instance=ExtResource("1_335qb")]
 transform = Transform3D(5, -1.89593e-07, 1.14884e-06, -3.27463e-07, 4.5052, 2.16869, -1.11738e-06, -2.16869, 4.5052, 40.2906, 0.000499725, 44.7108)
+collision_layer = 3
 
 [node name="WoodenShelfB" type="Node3D" parent="Aisles/AisleA"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4338, 0, -14.0616)
 
 [node name="WoodenShelfB1" parent="Aisles/AisleA/WoodenShelfB" instance=ExtResource("1_335qb")]
 transform = Transform3D(-5, 0, -7.54979e-07, -3.27463e-07, 4.5052, 2.16869, 6.80266e-07, 2.16869, -4.5052, 40.2906, 0.000499725, 34.6587)
+collision_layer = 3
 
 [node name="WoodenShelfB2" parent="Aisles/AisleA/WoodenShelfB" instance=ExtResource("1_335qb")]
 transform = Transform3D(5, -1.89593e-07, 1.14884e-06, -3.27463e-07, 4.5052, 2.16869, -1.11738e-06, -2.16869, 4.5052, 40.2906, 0.000499725, 44.7108)
+collision_layer = 3
 
 [node name="AisleA-old" type="Node3D" parent="Aisles"]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
 visible = false
 
@@ -146,161 +142,191 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
 
 [node name="ShelfB1" parent="Aisles/AisleB" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -10, 0, 0)
+collision_layer = 3
 
 [node name="ShelfB2" parent="Aisles/AisleB" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -20, 0, 0)
+collision_layer = 3
 
 [node name="ShelfB3" parent="Aisles/AisleB" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -30, 0, 0)
+collision_layer = 3
 
 [node name="ShelfB4" parent="Aisles/AisleB" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -40, 0, 0)
+collision_layer = 3
 
 [node name="ShelfB5" parent="Aisles/AisleB" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -50, 0, 0)
+collision_layer = 3
 
 [node name="ShelfB6" parent="Aisles/AisleB" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -60, 0, 0)
+collision_layer = 3
 
 [node name="AisleC" type="Node3D" parent="Aisles"]
 
 [node name="ShelfC1" parent="Aisles/AisleC" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 70, 0, 0)
+collision_layer = 3
 
 [node name="ShelfC2" parent="Aisles/AisleC" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 60, 0, 0)
+collision_layer = 3
 
 [node name="ShelfC3" parent="Aisles/AisleC" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 0, 0)
+collision_layer = 3
 
 [node name="ShelfC4" parent="Aisles/AisleC" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 40, 0, 0)
+collision_layer = 3
 
 [node name="ShelfC5" parent="Aisles/AisleC" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 30, 0, 0)
+collision_layer = 3
 
 [node name="ShelfC6" parent="Aisles/AisleC" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 20, 0, 0)
+collision_layer = 3
 
 [node name="AisleD" type="Node3D" parent="Aisles"]
 
 [node name="ShelfD1" parent="Aisles/AisleD" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -10, 0, 0)
+collision_layer = 3
 
 [node name="ShelfD2" parent="Aisles/AisleD" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -20, 0, 0)
+collision_layer = 3
 
 [node name="ShelfD3" parent="Aisles/AisleD" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -30, 0, 0)
+collision_layer = 3
 
 [node name="ShelfD4" parent="Aisles/AisleD" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -40, 0, 0)
+collision_layer = 3
 
 [node name="ShelfD5" parent="Aisles/AisleD" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -50, 0, 0)
+collision_layer = 3
 
 [node name="ShelfD6" parent="Aisles/AisleD" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -60, 0, 0)
+collision_layer = 3
 
 [node name="AisleE" type="Node3D" parent="Aisles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
 
 [node name="ShelfE1" parent="Aisles/AisleE" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 70, 0, 0)
+collision_layer = 3
 
 [node name="ShelfE2" parent="Aisles/AisleE" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 60, 0, 0)
+collision_layer = 3
 
 [node name="ShelfE3" parent="Aisles/AisleE" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 0, 0)
+collision_layer = 3
 
 [node name="ShelfE4" parent="Aisles/AisleE" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 40, 0, 0)
+collision_layer = 3
 
 [node name="ShelfE5" parent="Aisles/AisleE" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 30, 0, 0)
+collision_layer = 3
 
 [node name="ShelfE6" parent="Aisles/AisleE" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 20, 0, 0)
+collision_layer = 3
 
 [node name="AisleF" type="Node3D" parent="Aisles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
 
 [node name="ShelfF1" parent="Aisles/AisleF" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -10, 0, 0)
+collision_layer = 3
 
 [node name="ShelfF2" parent="Aisles/AisleF" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -20, 0, 0)
+collision_layer = 3
 
 [node name="ShelfF3" parent="Aisles/AisleF" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -30, 0, 0)
+collision_layer = 3
 
 [node name="ShelfF4" parent="Aisles/AisleF" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -40, 0, 0)
+collision_layer = 3
 
 [node name="ShelfF5" parent="Aisles/AisleF" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -50, 0, 0)
+collision_layer = 3
 
 [node name="ShelfF6" parent="Aisles/AisleF" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -60, 0, 0)
+collision_layer = 3
 
 [node name="AisleG" type="Node3D" parent="Aisles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
 
 [node name="ShelfG1" parent="Aisles/AisleG" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 70, 0, 0)
+collision_layer = 3
 
 [node name="ShelfG2" parent="Aisles/AisleG" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 60, 0, 0)
+collision_layer = 3
 
 [node name="ShelfG3" parent="Aisles/AisleG" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 0, 0)
+collision_layer = 3
 
 [node name="ShelfG4" parent="Aisles/AisleG" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 40, 0, 0)
+collision_layer = 3
 
 [node name="ShelfG5" parent="Aisles/AisleG" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 30, 0, 0)
+collision_layer = 3
 
 [node name="ShelfG6" parent="Aisles/AisleG" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 20, 0, 0)
+collision_layer = 3
 
 [node name="AisleH" type="Node3D" parent="Aisles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
 
 [node name="ShelfH1" parent="Aisles/AisleH" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -10, 0, 0)
+collision_layer = 3
 
 [node name="ShelfH2" parent="Aisles/AisleH" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -20, 0, 0)
+collision_layer = 3
 
 [node name="ShelfH3" parent="Aisles/AisleH" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -30, 0, 0)
+collision_layer = 3
 
 [node name="ShelfH4" parent="Aisles/AisleH" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -40, 0, 0)
+collision_layer = 3
 
 [node name="ShelfH5" parent="Aisles/AisleH" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -50, 0, 0)
+collision_layer = 3
 
 [node name="ShelfH6" parent="Aisles/AisleH" instance=ExtResource("2_g3g6l")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -60, 0, 0)
+collision_layer = 3
 
 [node name="Fridge" parent="Aisles" instance=ExtResource("3_i81j3")]
 transform = Transform3D(-4.37114e-07, 0, 10, 0, 10, 0, -10, 0, -4.37114e-07, -37.5, 0, 50)
-
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 5.21976, 0)
-script = ExtResource("4_nmdk5")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
-mesh = SubResource("BoxMesh_hol2l")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-shape = SubResource("BoxShape3D_7cmki")
-
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
-transform = Transform3D(0.2, -6.18172e-09, -2.56056e-09, 6.18172e-09, 0.141421, 0.141421, -2.56055e-09, -0.141421, 0.141421, -0.098208, 3.54295, 5.0553)
+collision_layer = 3
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14.3766, 0)
@@ -312,12 +338,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 0, 0)
 
 [node name="CheckoutCounter" parent="Checkout" instance=ExtResource("6_eu0ed")]
 transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 0, 0, 15)
+collision_layer = 3
 
 [node name="CheckoutCounter2" parent="Checkout" instance=ExtResource("6_eu0ed")]
 transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 0, 0, -10)
+collision_layer = 3
 
 [node name="CheckoutCounter3" parent="Checkout" instance=ExtResource("6_eu0ed")]
 transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 0, 0, -35)
+collision_layer = 3
 
 [node name="CheckoutCounter4" parent="Checkout" instance=ExtResource("6_eu0ed")]
 transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 0, 0, -60)
+collision_layer = 3
+
+[node name="Spawners" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104.088, 6.38161, 38.2064)
+
+[node name="Spawner1" type="Node3D" parent="Spawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 4)
+script = ExtResource("6_dmb7o")
+
+[node name="Spawner2" type="Node3D" parent="Spawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, -4)
+script = ExtResource("6_dmb7o")
