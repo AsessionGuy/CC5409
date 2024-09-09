@@ -21,6 +21,11 @@ Debug="*res://autoloads/debug.gd"
 Game="*res://autoloads/game.tscn"
 Level="*res://autoloads/level.gd"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [gui]
 
 theme/custom="res://resources/theme.tres"

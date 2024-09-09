@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 	
 const SPEED = 800.0
 const JUMP_VELOCITY = 100.0
@@ -13,6 +13,8 @@ const ACCELERATION = 2.0
 @onready var label_3d: Label3D = $Label3D
 @onready var spring_arm_3d: SpringArm3D = %SpringArm3D
 
+var player_data
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass
@@ -20,7 +22,7 @@ func _ready():
 func post_setup():
 	if is_multiplayer_authority():
 		var camera_3d = Camera3D.new()
-		spring_arm_3d.add_child(camera_3d)
+		spring_arm_3d.add_child(camera_3d)	
 		#camera_3d.rotation = spring_arm_3d.rotation
 		#camera_3d.position += Vector3(0, 0, spring_arm_3d.spring_length)
 		camera_3d.make_current()
@@ -56,6 +58,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func setup(player_data: Statics.PlayerData) -> void:
+	self.player_data = player_data
 	name = str(player_data.id)
 	set_multiplayer_authority(player_data.id)
 	label_3d.text = player_data.name

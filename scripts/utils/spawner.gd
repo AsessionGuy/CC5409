@@ -8,7 +8,10 @@ func _ready() -> void:
 
 func set_player(player: Node3D) -> void:
 	player.global_position = self.global_position
-	self.free = false
+	self.free = false	
 
+func set_cart(player: Node3D, cart: Node3D) -> void:
+	cart.global_position = player.global_position + Vector3(-0.01, 0, 0)
+	cart.set_player(player)
 func is_free() -> bool:
 	return free

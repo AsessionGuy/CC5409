@@ -14,17 +14,21 @@ material = SubResource("StandardMaterial3D_p5haw")
 [sub_resource type="SphereShape3D" id="SphereShape3D_5dyeh"]
 
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_kw0sa")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 mesh = SubResource("BoxMesh_4gwfj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 shape = SubResource("BoxShape3D_yr6io")
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.893578, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86413, 0)
 
 [node name="Camera" type="Node3D" parent="."]
 
@@ -35,4 +39,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
 unique_name_in_owner = true
 collision_mask = 2
 shape = SubResource("SphereShape3D_5dyeh")
-spring_length = 3.0
+spring_length = 20.0
