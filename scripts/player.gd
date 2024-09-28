@@ -17,8 +17,14 @@ var player_data
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	pass
 	
+	pass
+
+func toggle_lock_movement():
+	axis_lock_linear_x = not axis_lock_linear_x
+	axis_lock_linear_y = not axis_lock_linear_y
+	axis_lock_linear_z = not axis_lock_linear_z
+
 func post_setup():
 	if is_multiplayer_authority():
 		var camera_3d = Camera3D.new()
@@ -26,6 +32,8 @@ func post_setup():
 		#camera_3d.rotation = spring_arm_3d.rotation
 		#camera_3d.position += Vector3(0, 0, spring_arm_3d.spring_length)
 		camera_3d.make_current()
+		GameController.set_player(self)
+	
 
 func _physics_process(delta: float) -> void:				
 	if is_multiplayer_authority():
@@ -53,7 +61,7 @@ func _physics_process(delta: float) -> void:
 		spring_arm_3d.rotation.x = clampf(spring_arm_3d.rotation.x, deg_to_rad(-90), deg_to_rad(15))
 		rotation.y = yaw * delta
 		
-		send_rotation(rotation)
+		send_rotation.rpc(transform.basis.get_rotation_quaternion())
 		
 	move_and_slide()
 
@@ -86,5 +94,5 @@ func send_position(pos, vel):
 	velocity = lerp(velocity, vel, 0.5)
 
 @rpc("any_peer", "call_remote", "reliable")
-func send_rotation(rot):
-	rotation = lerp(rotation, rot, 0.5)
+func send_rotation(rot: Quaternion):
+	rotation = rot.slerp(transform.basis.get_rotation_quaternion(), 0.5).get_euler()
