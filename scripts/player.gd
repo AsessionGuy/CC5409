@@ -9,21 +9,43 @@ const ACCELERATION = 2.0
 
 @onready var yaw = 0
 @onready var pitch = 0
-@onready var skeleton_3d: Skeleton3D = $PhysicsPlayer/RootNode/CharacterArmature/Skeleton3D
+#@onready var skeleton_3d: Skeleton3D = $PhysicsPlayer/RootNode/CharacterArmature/Skeleton3D
 @onready var label_3d: Label3D = $Label3D
 @onready var spring_arm_3d: SpringArm3D = %SpringArm3D
+
+@onready var ui: GameUI = %UI
+@onready var can_move: bool = true
 
 var player_data
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-	pass
+	#ui.hide_countdown()
+	#ui.hide_timer()
 
-func toggle_lock_movement():
-	axis_lock_linear_x = not axis_lock_linear_x
-	axis_lock_linear_y = not axis_lock_linear_y
-	axis_lock_linear_z = not axis_lock_linear_z
+@rpc("any_peer", "call_local")
+func lock_movement():
+	can_move = false
+	
+@rpc("any_peer", "call_local")
+func unlock_movement():
+	can_move = true
+
+@rpc("any_peer", "call_local")
+func hide_timer():
+	ui.hide_timer()
+	
+@rpc("any_peer", "call_local")
+func show_timer():
+	ui.show_timer()
+	
+@rpc("any_peer", "call_local")
+func hide_countdown():
+	ui.hide_countdown()
+	
+@rpc("any_peer", "call_remote")
+func show_countdown():
+	ui.show_countdown()
 
 func post_setup():
 	if is_multiplayer_authority():
@@ -33,10 +55,19 @@ func post_setup():
 		#camera_3d.position += Vector3(0, 0, spring_arm_3d.spring_length)
 		camera_3d.make_current()
 		GameController.set_player(self)
+		
 	
+@rpc("any_peer", "call_local", "reliable")
+func update_label_timer(time: int):
+	ui.update_label_timer(time)
+
+@rpc("any_peer", "call_local", "reliable")
+func update_label_countdown(time: int):
+	ui.update_label_countdown(time)
 
 func _physics_process(delta: float) -> void:				
-	if is_multiplayer_authority():
+	if is_multiplayer_authority() and can_move:
+		
 		# Add the gravity.
 		if not is_on_floor():
 			velocity += get_gravity() * delta
@@ -70,7 +101,6 @@ func setup(player_data: Statics.PlayerData) -> void:
 	name = str(player_data.id)
 	set_multiplayer_authority(player_data.id)
 	label_3d.text = player_data.name
-	
 	post_setup()
 
 func _input(event: InputEvent) -> void:

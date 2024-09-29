@@ -6,7 +6,7 @@ class_name Spawner extends Node3D
 func _ready() -> void:
 	pass # Replace with function body.
 
-func set_player(player: Node3D) -> void:
+func set_player(player: Node3D):
 	player.global_position = self.global_position
 	self.free = false	
 
