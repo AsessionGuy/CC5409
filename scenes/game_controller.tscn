@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbm2u1qk0td5x"]
+
+[ext_resource type="Script" path="res://autoloads/game_controller.gd" id="1_ojc5k"]
+
+[node name="GameController" type="Node"]
+script = ExtResource("1_ojc5k")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 180.0
+one_shot = true
+
+[node name="Countdown" type="Timer" parent="."]
+process_callback = 0
+wait_time = 4.0
+one_shot = true

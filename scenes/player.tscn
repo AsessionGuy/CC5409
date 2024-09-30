@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1aw48xoplfoc"]
+[gd_scene load_steps=8 format=3 uid="uid://c1aw48xoplfoc"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_kw0sa"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_bnsnn"]
+[ext_resource type="PackedScene" uid="uid://chu6anudqelw8" path="res://scenes/ui/game_ui.tscn" id="3_t8q8o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5haw"]
 albedo_texture = ExtResource("2_bnsnn")
@@ -40,3 +41,8 @@ unique_name_in_owner = true
 collision_mask = 2
 shape = SubResource("SphereShape3D_5dyeh")
 spring_length = 20.0
+
+[node name="UI" parent="." instance=ExtResource("3_t8q8o")]
+unique_name_in_owner = true
+
+[editable path="UI"]

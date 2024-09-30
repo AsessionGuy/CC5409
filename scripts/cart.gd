@@ -10,6 +10,11 @@ func set_player(player: Player):
 	self.player = player
 	set_multiplayer_authority(player.get_multiplayer_authority())
 
+func setup(player: Player):
+	self.set_player(player)
+	if not is_multiplayer_authority():
+		custom_integrator = true
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():

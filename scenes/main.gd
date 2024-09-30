@@ -18,4 +18,6 @@ func _ready() -> void:
 		var cart_inst = CART.instantiate()
 		carts.add_child(cart_inst)
 		spawner.set_cart(player_inst, cart_inst)
-		
+		#GameController.setup(player_data)
+		GameController.set_player(player_inst)
+		GameController.start_game.rpc()
