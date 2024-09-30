@@ -7,6 +7,7 @@ const JUMP_VELOCITY = 4.5
 
 enum {IDLE, RUN}
 var current_anim = IDLE
+var rot_value = 0
 
 @export var blend_speed = 15
 
@@ -21,9 +22,7 @@ func handle_animations(delta):
 			print("running")
 			run_val = lerpf(run_val, 1, blend_speed*delta)
 	
-			
-
-
+		
 func update_tree():
 	animationtree["parameters/running/blend_amount"] = run_val
 
@@ -31,7 +30,7 @@ func update_tree():
 #@onready var physical_bone_simulator_3d: PhysicalBoneSimulator3D = $PhysicsPlayer/RootNode/CharacterArmature/Skeleton3D/PhysicalBoneSimulator3D
 func _ready():
 	update_tree()
-	pass
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	#physical_bone_simulator_3d.physical_bones_start_simulation()
 
 func _physics_process(delta: float) -> void:
@@ -49,12 +48,10 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
+	var input_dir := Input.get_vector("right", "left", "backwards", "forward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
-	
-		
-	
+
+
 	if direction != Vector3(0,0,0):
 		print(1)
 		velocity.x = direction.x * SPEED
@@ -74,4 +71,8 @@ func _physics_process(delta: float) -> void:
 		#position = position.move_toward(velocity, delta)
 	move_and_slide()
 	
-	#print(direction)
+	rotate_y(rot_value)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		rotate_y(-event.relative.x*0.0025)
