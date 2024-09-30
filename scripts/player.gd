@@ -8,6 +8,7 @@ const JUMP_VELOCITY = 4.5
 enum {IDLE, RUN}
 var current_anim = IDLE
 var rot_value = 0
+var double = 1
 
 @export var blend_speed = 15
 
@@ -50,18 +51,29 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("right", "left", "backwards", "forward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	if Input.is_action_just_pressed("accelerate") and input_dir[1] == 1:
+		double = 2
+		
+	if Input.is_action_just_released("accelerate"):
+		double = 1
+	
 
 
 	if direction != Vector3(0,0,0):
-		print(1)
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		
+	
+		
+		velocity.x = direction.x * SPEED * double
+		velocity.z = direction.z * SPEED * double
 		
 		current_anim = RUN
 		
 	else:
 	
 		velocity = Vector3(0,0,0)
+		
+		
 		
 		current_anim = IDLE
 		
@@ -72,6 +84,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	rotate_y(rot_value)
+	
+	print(velocity)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
