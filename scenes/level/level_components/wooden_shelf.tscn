@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2qfdmmve21m"]
+
+[ext_resource type="PackedScene" uid="uid://b5lg4q5irhse1" path="res://assets/wooden-shelf.glb" id="1_656q4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d6aqh"]
+size = Vector3(4.5, 0.1, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nwwia"]
+size = Vector3(4.5, 0.1, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7pq34"]
+size = Vector3(4.5, 1.8, 0.1)
+
+[node name="WoodenShelf" type="StaticBody3D"]
+
+[node name="wooden-shelf" parent="." instance=ExtResource("1_656q4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49824, 0, 0)
+
+[node name="wooden-shelf2" parent="." instance=ExtResource("1_656q4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00176287, 0, 0)
+
+[node name="wooden-shelf3" parent="." instance=ExtResource("1_656q4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50176, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.05)
+shape = SubResource("BoxShape3D_d6aqh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("BoxShape3D_nwwia")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+shape = SubResource("BoxShape3D_nwwia")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
+shape = SubResource("BoxShape3D_nwwia")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.2)
+shape = SubResource("BoxShape3D_7pq34")

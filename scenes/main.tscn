@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5hufqs7sbm01"]
+[gd_scene load_steps=3 format=3 uid="uid://b5hufqs7sbm01"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_ysfbh"]
+[ext_resource type="PackedScene" uid="uid://rgsrk5cpujdl" path="res://scenes/level/level.tscn" id="2_l3e5m"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node3D"]
 script = ExtResource("1_ysfbh")
+
+[node name="Level" parent="." instance=ExtResource("2_l3e5m")]
+unique_name_in_owner = true
+
+[node name="Players" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Carts" type="Node3D" parent="."]
+unique_name_in_owner = true

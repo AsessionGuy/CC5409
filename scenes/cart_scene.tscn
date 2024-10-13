@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfv54w3a7o2hm"]
+
+[ext_resource type="Script" path="res://scripts/cart.gd" id="1_ffn2b"]
+[ext_resource type="PackedScene" uid="uid://dpwvfttdrx68d" path="res://scenes/shopping_cart.tscn" id="2_ndqjn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bnoca"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_st4b3"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="CartScene" type="RigidBody3D"]
+script = ExtResource("1_ffn2b")
+
+[node name="Products" type="Node3D" parent="."]
+
+[node name="Product" type="Node3D" parent="Products"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Products/Product"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58035, 1.0652)
+gravity_scale = 0.4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Products/Product/RigidBody3D"]
+mesh = SubResource("BoxMesh_bnoca")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Products/Product/RigidBody3D"]
+shape = SubResource("BoxShape3D_st4b3")
+metadata/_edit_group_ = true
+
+[node name="Product2" type="Node3D" parent="Products"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.064858, 0.469683, 0.00455952)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Products/Product2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58035, 1.0652)
+gravity_scale = 0.4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Products/Product2/RigidBody3D"]
+mesh = SubResource("BoxMesh_bnoca")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Products/Product2/RigidBody3D"]
+shape = SubResource("BoxShape3D_st4b3")
+metadata/_edit_group_ = true
+
+[node name="Product3" type="Node3D" parent="Products"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0879169, -0.417781, 0.117658)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Products/Product3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58035, 1.0652)
+gravity_scale = 0.4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Products/Product3/RigidBody3D"]
+mesh = SubResource("BoxMesh_bnoca")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Products/Product3/RigidBody3D"]
+shape = SubResource("BoxShape3D_st4b3")
+metadata/_edit_group_ = true
+
+[node name="Cart" parent="." instance=ExtResource("2_ndqjn")]
