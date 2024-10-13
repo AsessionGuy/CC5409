@@ -4,6 +4,8 @@ const SPEED = 800.0
 const JUMP_VELOCITY = 100.0
 const ACCELERATION = 2.0
 
+
+@onready var animationtree = $AnimatedPlayer/AnimationTree
 @export var YAW_SENSITIVITY = 0.5
 @export var PITCH_SENSITIVITY = 0.1
 
@@ -18,8 +20,34 @@ const ACCELERATION = 2.0
 
 var player_data
 
+enum {IDLE, RUN}
+var current_anim = IDLE
+var rot_value = 0
+var double = 1
+
+@export var blend_speed = 15
+
+var run_val = 0
+
+
+func handle_animations(delta):
+	match current_anim:
+		IDLE:
+			print("idle")
+			run_val = lerpf(run_val, 0, blend_speed*delta)
+		RUN:
+			print("running")
+			run_val = lerpf(run_val, 1, blend_speed*delta)
+			
+	return run_val
+	
+
+
+#@onready var skeleton_3d: Skeleton3D = $PhysicsPlayer/RootNode/CharacterArmature/Skeleton3D
+#@onready var physical_bone_simulator_3d: PhysicalBoneSimulator3D = $PhysicsPlayer/RootNode/CharacterArmature/Skeleton3D/PhysicalBoneSimulator3D
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#update_tree.rpc()
 	#ui.hide_countdown()
 	#ui.hide_timer()
 
@@ -67,6 +95,9 @@ func update_label_countdown(time: int):
 
 func _physics_process(delta: float) -> void:				
 	if is_multiplayer_authority() and can_move:
+		var val = handle_animations(delta)
+		animationtree["parameters/running/blend_amount"] = val
+		send_run_value.rpc(val)
 		
 		# Add the gravity.
 		if not is_on_floor():
@@ -81,13 +112,16 @@ func _physics_process(delta: float) -> void:
 		var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		if direction:
+			current_anim = RUN
 			velocity.x = direction.x * SPEED * delta
 			velocity.z = direction.z * SPEED * delta
 		else:
+			current_anim = IDLE
 			velocity.x = move_toward(velocity.x, 0, SPEED * delta)
 			velocity.z = move_toward(velocity.z, 0, SPEED * delta)
+			
 		send_position.rpc(global_position, velocity)
-		
+	
 		spring_arm_3d.rotation.x = pitch * delta
 		spring_arm_3d.rotation.x = clampf(spring_arm_3d.rotation.x, deg_to_rad(-90), deg_to_rad(15))
 		rotation.y = yaw * delta
@@ -123,6 +157,14 @@ func send_position(pos, vel):
 	global_position = lerp(global_position, pos, 0.5)
 	velocity = lerp(velocity, vel, 0.5)
 
+
 @rpc("any_peer", "call_remote", "reliable")
 func send_rotation(rot: Quaternion):
 	rotation = rot.slerp(transform.basis.get_rotation_quaternion(), 0.5).get_euler()
+	
+@rpc("any_peer", "reliable")
+func send_run_value(value):
+	animationtree["parameters/running/blend_amount"] = value
+	
+
+	
