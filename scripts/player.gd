@@ -33,42 +33,45 @@ var interact_val = 0
 
 var interacting := false
 
-
-
-
+var idle = true
+var running = false
+var walking = false
+var interaction = false
 
 func handle_animations(delta):
 	match current_anim:
 		IDLE:
 			#print("idle")
-			run_val = lerpf(run_val, 0, blend_speed*delta)
-			walk_val = lerpf(run_val, 0 ,blend_speed*delta)
-			interact_val = lerpf(interact_val, 0 ,blend_speed*delta)
+			idle = true
+			running = false
+			walking = false
+			interaction = false
 		WALKING:
 			#print("walking")
-			run_val = lerpf(run_val, 0, blend_speed*delta)
-			walk_val = lerpf(walk_val, 1, blend_speed*delta)
-			interact_val = lerpf(interact_val, 0 ,blend_speed*delta)
+			idle = false
+			walking = true
+			running = false
+			interaction = false
 		RUN:
 			#print("running")
-			run_val = lerpf(run_val, 1, blend_speed*delta)
-			walk_val = lerpf(walk_val, 0 ,blend_speed*delta)
-			interact_val = lerpf(interact_val, 0 ,blend_speed*delta)
+			idle = false 
+			walking = false
+			running = true
+			interaction = false
 		INTERACT:
-			#print("interacting")
-			run_val = lerpf(run_val,1,blend_speed*delta)
-			walk_val = lerpf(run_val,0,blend_speed*delta)
-			interact_val = lerpf(interact_val, 1 ,blend_speed*delta)
-		
-		
+			idle = false
+			walking = false
+			running = false
+			interaction = true
 			
-	
+			
 
 
 #@onready var skeleton_3d: Skeleton3D = $PhysicsPlayer/RootNode/CharacterArmature/Skeleton3D
 #@onready var physical_bone_simulator_3d: PhysicalBoneSimulator3D = $PhysicsPlayer/RootNode/CharacterArmature/Skeleton3D/PhysicalBoneSimulator3D
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	animationtree.active = true
 	#update_tree.rpc()
 	#ui.hide_countdown()
 	#ui.hide_timer()
@@ -117,11 +120,8 @@ func update_label_countdown(time: int):
 
 func _physics_process(delta: float) -> void:				
 	if is_multiplayer_authority() and can_move:
-		var blend_values = handle_animations(delta)
-		animationtree["parameters/running/blend_amount"] = run_val
-		animationtree["parameters/walking/blend_amount"] = walk_val
-		animationtree["parameters/interaction/blend_amount"] = interact_val
-		send_run_value.rpc(walk_val, run_val, interact_val)
+		handle_animations(delta)
+		
 		
 		# Add the gravity.
 		if not is_on_floor():
@@ -134,13 +134,15 @@ func _physics_process(delta: float) -> void:
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+		var blend_pos := input_dir.normalized()
 		var run_bool := Input.is_action_pressed("run")
 		interacting = Input.is_action_just_pressed("test") or interacting
 		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		
 		if interacting:
 			current_anim = INTERACT
-		
+			velocity.x = 0
+			velocity.z = 0
 		
 		elif direction:
 			current_anim = RUN if run_bool else WALKING
@@ -152,6 +154,10 @@ func _physics_process(delta: float) -> void:
 			velocity.z = move_toward(velocity.z, 0, SPEED * delta)
 			
 		send_position.rpc(global_position, velocity)
+		
+		
+		send_run_value.rpc(idle,running,walking,interaction, blend_pos)
+	
 	
 		spring_arm_3d.rotation.x = pitch * delta
 		spring_arm_3d.rotation.x = clampf(spring_arm_3d.rotation.x, deg_to_rad(-90), deg_to_rad(15))
@@ -193,19 +199,24 @@ func send_position(pos, vel):
 func send_rotation(rot: Quaternion):
 	rotation = rot.slerp(transform.basis.get_rotation_quaternion(), 0.5).get_euler()
 	
-@rpc("any_peer", "reliable")
-func send_run_value(walk_val, run_val, interact_val):
-	animationtree["parameters/walking/blend_amount"] = walk_val
-	animationtree["parameters/running/blend_amount"] = run_val
-	animationtree["parameters/interaction/blend_amount"] = interact_val 
+@rpc("any_peer","call_local", "reliable")
+func send_run_value(idle, running, walking, interaction, direction):
+	animationtree["parameters/StateMachine/conditions/idle"] = idle
+	animationtree["parameters/StateMachine/conditions/running"] = running
+	animationtree["parameters/StateMachine/conditions/walk"] = walking 
+	animationtree["parameters/StateMachine/conditions/interaction"] = interaction
+	animationtree["parameters/StateMachine/running/blend_position"] = direction
 	
 func _on_interaction_finished() -> void:
 	if current_anim == INTERACT:
 		interacting = false
 	
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
+	print(anim_name)
 	if anim_name == "CharacterArmature|Interact":
+		print("a")
 		interacting = false
+		current_anim = IDLE
 
 		
 		
