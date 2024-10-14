@@ -134,10 +134,11 @@ func _physics_process(delta: float) -> void:
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+		var input_value = (-1 if Input.is_action_pressed("move_forward") else 0) + (1 if Input.is_action_pressed("move_backward") else 0)
 		var blend_pos := input_dir.normalized()
 		var run_bool := Input.is_action_pressed("run")
 		interacting = Input.is_action_just_pressed("test") or interacting
-		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		var direction := (transform.basis * Vector3(0, 0, input_value)).normalized()
 		
 		if interacting:
 			current_anim = INTERACT
