@@ -20,7 +20,7 @@ const ACCELERATION = 2.0
 
 var player_data
 
-enum {IDLE, RUN}
+enum {IDLE, RUN, WALKING, INTERACT}
 var current_anim = IDLE
 var rot_value = 0
 var double = 1
@@ -28,18 +28,40 @@ var double = 1
 @export var blend_speed = 15
 
 var run_val = 0
+var walk_val = 0
+var interact_val = 0
+
+var interacting := false
+
+
+
 
 
 func handle_animations(delta):
 	match current_anim:
 		IDLE:
-			print("idle")
+			#print("idle")
 			run_val = lerpf(run_val, 0, blend_speed*delta)
+			walk_val = lerpf(run_val, 0 ,blend_speed*delta)
+			interact_val = lerpf(interact_val, 0 ,blend_speed*delta)
+		WALKING:
+			#print("walking")
+			run_val = lerpf(run_val, 0, blend_speed*delta)
+			walk_val = lerpf(walk_val, 1, blend_speed*delta)
+			interact_val = lerpf(interact_val, 0 ,blend_speed*delta)
 		RUN:
-			print("running")
+			#print("running")
 			run_val = lerpf(run_val, 1, blend_speed*delta)
+			walk_val = lerpf(walk_val, 0 ,blend_speed*delta)
+			interact_val = lerpf(interact_val, 0 ,blend_speed*delta)
+		INTERACT:
+			#print("interacting")
+			run_val = lerpf(run_val,1,blend_speed*delta)
+			walk_val = lerpf(run_val,0,blend_speed*delta)
+			interact_val = lerpf(interact_val, 1 ,blend_speed*delta)
+		
+		
 			
-	return run_val
 	
 
 
@@ -95,9 +117,11 @@ func update_label_countdown(time: int):
 
 func _physics_process(delta: float) -> void:				
 	if is_multiplayer_authority() and can_move:
-		var val = handle_animations(delta)
-		animationtree["parameters/running/blend_amount"] = val
-		send_run_value.rpc(val)
+		var blend_values = handle_animations(delta)
+		animationtree["parameters/running/blend_amount"] = run_val
+		animationtree["parameters/walking/blend_amount"] = walk_val
+		animationtree["parameters/interaction/blend_amount"] = interact_val
+		send_run_value.rpc(walk_val, run_val, interact_val)
 		
 		# Add the gravity.
 		if not is_on_floor():
@@ -109,12 +133,19 @@ func _physics_process(delta: float) -> void:
 
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
-		var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+		var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+		var run_bool := Input.is_action_pressed("run")
+		interacting = Input.is_action_just_pressed("test") or interacting
 		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		if direction:
-			current_anim = RUN
-			velocity.x = direction.x * SPEED * delta
-			velocity.z = direction.z * SPEED * delta
+		
+		if interacting:
+			current_anim = INTERACT
+		
+		
+		elif direction:
+			current_anim = RUN if run_bool else WALKING
+			velocity.x = direction.x * SPEED * delta * (2 if current_anim == RUN else 1)
+			velocity.z = direction.z * SPEED * delta * (2 if current_anim == RUN else 1)
 		else:
 			current_anim = IDLE
 			velocity.x = move_toward(velocity.x, 0, SPEED * delta)
@@ -163,8 +194,18 @@ func send_rotation(rot: Quaternion):
 	rotation = rot.slerp(transform.basis.get_rotation_quaternion(), 0.5).get_euler()
 	
 @rpc("any_peer", "reliable")
-func send_run_value(value):
-	animationtree["parameters/running/blend_amount"] = value
+func send_run_value(walk_val, run_val, interact_val):
+	animationtree["parameters/walking/blend_amount"] = walk_val
+	animationtree["parameters/running/blend_amount"] = run_val
+	animationtree["parameters/interaction/blend_amount"] = interact_val 
 	
+func _on_interaction_finished() -> void:
+	if current_anim == INTERACT:
+		interacting = false
+	
+func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "CharacterArmature|Interact":
+		interacting = false
 
-	
+		
+		
