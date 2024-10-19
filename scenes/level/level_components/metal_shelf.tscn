@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c24l2r35ij2r2"]
 
-[ext_resource type="PackedScene" uid="uid://c4hfc6aue3uuw" path="res://assets/metal_shelf.glb" id="1_csqlo"]
+[ext_resource type="PackedScene" uid="uid://bwkh7bh1gke5k" path="res://assets/metal_shelf.glb" id="1_csqlo"]
 [ext_resource type="Script" path="res://scripts/metal_shelf.gd" id="1_qw5w1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ltqfb"]

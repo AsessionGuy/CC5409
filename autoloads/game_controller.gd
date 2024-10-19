@@ -1,5 +1,7 @@
 extends Node
 
+const DRAW_SCENE = preload("res://scenes/draw_scene.tscn")
+
 @onready var timer: Timer = $Timer
 @onready var countdown: Timer = $Countdown
 @onready var ui: GameUI = %UI
@@ -47,6 +49,8 @@ func on_countdown_timeout() -> void:
 func on_timer_timeout() -> void:
 	ui.hide_timer()
 	player.lock_movement.rpc()
+	Level.add_child(DRAW_SCENE.instantiate())
+	ui.queue_free()
 	
 func set_player(player: Player) -> void:
 	if is_multiplayer_authority():
