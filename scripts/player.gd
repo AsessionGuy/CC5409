@@ -107,12 +107,10 @@ func _physics_process(delta: float) -> void:
 
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
-		var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-		var input_value = (-1 if Input.is_action_pressed("move_forward") else 0) + (1 if Input.is_action_pressed("move_backward") else 0)
-		var blend_pos := input_dir.normalized()
+		var input_dir := (-1 if Input.is_action_pressed("move_forward") else 0) + (1 if Input.is_action_pressed("move_backward") else 0)
 		var run_bool := Input.is_action_pressed("run")
 		interacting = Input.is_action_just_pressed("test") or interacting
-		var direction := (transform.basis * Vector3(0, 0, input_value)).normalized()
+		var direction := (transform.basis * Vector3(0, 0, input_dir)).normalized()
 		
 		if interacting:
 			current_anim = INTERACT
@@ -120,6 +118,7 @@ func _physics_process(delta: float) -> void:
 			velocity.z = 0
 		
 		elif direction:
+			print(run_bool)
 			current_anim = RUN if run_bool else WALKING
 			velocity.x = direction.x * SPEED * delta * (2 if current_anim == RUN else 1)
 			velocity.z = direction.z * SPEED * delta * (2 if current_anim == RUN else 1)
@@ -131,7 +130,7 @@ func _physics_process(delta: float) -> void:
 		send_position.rpc(global_position, velocity)
 		
 		
-		send_run_value.rpc(idle,running,walking,interaction, blend_pos)
+		send_run_value.rpc(idle,running,walking,interaction, input_dir)
 	
 	
 		spring_arm_3d.rotation.x = pitch * delta
