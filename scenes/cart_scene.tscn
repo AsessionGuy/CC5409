@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cfv54w3a7o2hm"]
 
 [ext_resource type="Script" path="res://scripts/cart.gd" id="1_ffn2b"]
-[ext_resource type="PackedScene" uid="uid://dpwvfttdrx68d" path="res://scenes/shopping_cart.tscn" id="2_ndqjn"]
+[ext_resource type="PackedScene" uid="uid://c8lurflvsqpyf" path="res://scenes/shopping_cart.tscn" id="2_ndqjn"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_bnoca"]
 size = Vector3(0.1, 0.1, 0.1)

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dolgwnx7rw5se"]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1_tdnav"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pdgel"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sa3xr"]
+
+[node name="RigidBody3D" type="RigidBody3D"]
+script = ExtResource("1_tdnav")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_pdgel")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_sa3xr")

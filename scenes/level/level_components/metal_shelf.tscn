@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c24l2r35ij2r2"]
+[gd_scene load_steps=6 format=3 uid="uid://c24l2r35ij2r2"]
 
-[ext_resource type="PackedScene" uid="uid://iypnkwojbh07" path="res://assets/metal_shelf.glb" id="1_csqlo"]
+[ext_resource type="PackedScene" uid="uid://c4hfc6aue3uuw" path="res://assets/metal_shelf.glb" id="1_csqlo"]
+[ext_resource type="Script" path="res://scripts/metal_shelf.gd" id="1_qw5w1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ltqfb"]
 size = Vector3(1, 0.1, 0.7)
@@ -12,6 +13,7 @@ size = Vector3(1, 0.1, 0.5)
 size = Vector3(1, 1.2, 0.1)
 
 [node name="Node3D" type="StaticBody3D"]
+script = ExtResource("1_qw5w1")
 
 [node name="metal_shelf" parent="." instance=ExtResource("1_csqlo")]
 
@@ -34,3 +36,141 @@ shape = SubResource("BoxShape3D_ggtb0")
 [node name="Colision5" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("BoxShape3D_wj2vo")
+
+[node name="itemSpawnpoints" type="Node3D" parent="."]
+
+[node name="1" type="Node3D" parent="itemSpawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14867, -0.15)
+
+[node name="1" type="Node3D" parent="itemSpawnpoints/1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+
+[node name="2" type="Node3D" parent="itemSpawnpoints/1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+
+[node name="3" type="Node3D" parent="itemSpawnpoints/1"]
+
+[node name="4" type="Node3D" parent="itemSpawnpoints/1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+
+[node name="5" type="Node3D" parent="itemSpawnpoints/1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+
+[node name="2" type="Node3D" parent="itemSpawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44867, -0.15)
+
+[node name="1" type="Node3D" parent="itemSpawnpoints/2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+
+[node name="2" type="Node3D" parent="itemSpawnpoints/2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+
+[node name="3" type="Node3D" parent="itemSpawnpoints/2"]
+
+[node name="4" type="Node3D" parent="itemSpawnpoints/2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+
+[node name="5" type="Node3D" parent="itemSpawnpoints/2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+
+[node name="3" type="Node3D" parent="itemSpawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74867, -0.15)
+
+[node name="1" type="Node3D" parent="itemSpawnpoints/3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+
+[node name="2" type="Node3D" parent="itemSpawnpoints/3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+
+[node name="3" type="Node3D" parent="itemSpawnpoints/3"]
+
+[node name="4" type="Node3D" parent="itemSpawnpoints/3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+
+[node name="5" type="Node3D" parent="itemSpawnpoints/3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+
+[node name="4" type="Node3D" parent="itemSpawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04867, -0.15)
+
+[node name="1" type="Node3D" parent="itemSpawnpoints/4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+
+[node name="2" type="Node3D" parent="itemSpawnpoints/4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+
+[node name="3" type="Node3D" parent="itemSpawnpoints/4"]
+
+[node name="4" type="Node3D" parent="itemSpawnpoints/4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+
+[node name="5" type="Node3D" parent="itemSpawnpoints/4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+
+[node name="5" type="Node3D" parent="itemSpawnpoints"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.14867, 0.149643)
+
+[node name="1" type="Node3D" parent="itemSpawnpoints/5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+
+[node name="2" type="Node3D" parent="itemSpawnpoints/5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+
+[node name="3" type="Node3D" parent="itemSpawnpoints/5"]
+
+[node name="4" type="Node3D" parent="itemSpawnpoints/5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+
+[node name="5" type="Node3D" parent="itemSpawnpoints/5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+
+[node name="6" type="Node3D" parent="itemSpawnpoints"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.44867, 0.149643)
+
+[node name="1" type="Node3D" parent="itemSpawnpoints/6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+
+[node name="2" type="Node3D" parent="itemSpawnpoints/6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+
+[node name="3" type="Node3D" parent="itemSpawnpoints/6"]
+
+[node name="4" type="Node3D" parent="itemSpawnpoints/6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+
+[node name="5" type="Node3D" parent="itemSpawnpoints/6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+
+[node name="7" type="Node3D" parent="itemSpawnpoints"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.74867, 0.149643)
+
+[node name="1" type="Node3D" parent="itemSpawnpoints/7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+
+[node name="2" type="Node3D" parent="itemSpawnpoints/7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+
+[node name="3" type="Node3D" parent="itemSpawnpoints/7"]
+
+[node name="4" type="Node3D" parent="itemSpawnpoints/7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+
+[node name="5" type="Node3D" parent="itemSpawnpoints/7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+
+[node name="8" type="Node3D" parent="itemSpawnpoints"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.04867, 0.149643)
+
+[node name="1" type="Node3D" parent="itemSpawnpoints/8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+
+[node name="2" type="Node3D" parent="itemSpawnpoints/8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+
+[node name="3" type="Node3D" parent="itemSpawnpoints/8"]
+
+[node name="4" type="Node3D" parent="itemSpawnpoints/8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+
+[node name="5" type="Node3D" parent="itemSpawnpoints/8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)

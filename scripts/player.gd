@@ -15,7 +15,6 @@ const ACCELERATION = 2.0
 @onready var label_3d: Label3D = $Label3D
 @onready var spring_arm_3d: SpringArm3D = %SpringArm3D
 
-@onready var ui: GameUI = %UI
 @onready var can_move: bool = true
 
 var player_data
@@ -82,23 +81,7 @@ func lock_movement():
 	
 @rpc("any_peer", "call_local")
 func unlock_movement():
-	can_move = true
-
-@rpc("any_peer", "call_local")
-func hide_timer():
-	ui.hide_timer()
-	
-@rpc("any_peer", "call_local")
-func show_timer():
-	ui.show_timer()
-	
-@rpc("any_peer", "call_local")
-func hide_countdown():
-	ui.hide_countdown()
-	
-@rpc("any_peer", "call_remote")
-func show_countdown():
-	ui.show_countdown()
+	can_move = true	
 
 func post_setup():
 	if is_multiplayer_authority():
@@ -108,20 +91,11 @@ func post_setup():
 		#camera_3d.position += Vector3(0, 0, spring_arm_3d.spring_length)
 		camera_3d.make_current()
 		GameController.set_player(self)
-		
-	
-@rpc("any_peer", "call_local", "reliable")
-func update_label_timer(time: int):
-	ui.update_label_timer(time)
-
-@rpc("any_peer", "call_local", "reliable")
-func update_label_countdown(time: int):
-	ui.update_label_countdown(time)
 
 func _physics_process(delta: float) -> void:				
 	if is_multiplayer_authority() and can_move:
 		handle_animations(delta)
-		
+
 		
 		# Add the gravity.
 		if not is_on_floor():

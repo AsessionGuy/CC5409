@@ -24,9 +24,11 @@ func show_countdown():
 func _process(delta: float) -> void:
 	pass
 	
+@rpc("authority", "call_local", "reliable")
 func update_label_timer(time: int):
 	label_timer.text = seconds_to_mm_ss(time)
-	
+
+@rpc("authority", "call_local", "reliable")
 func update_label_countdown(time: int):
 	label_countdown.text = seconds_to_mm_ss(time)
 
