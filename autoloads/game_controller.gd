@@ -1,8 +1,13 @@
 extends Node
 
+const DRAW_SCENE = preload("res://scenes/draw_scene.tscn")
+
 @onready var timer: Timer = $Timer
 @onready var countdown: Timer = $Countdown
+@onready var ui: GameUI = %UI
 @onready var player: Player
+
+@export var items: Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,28 +17,51 @@ func _ready() -> void:
 func setup(player_data):
 	set_multiplayer_authority(player_data.id)
 
-@rpc("any_peer", "call_remote")
+@rpc("authority", "call_local")
 func start_game():
-	self.player.lock_movement.rpc()
-	self.player.show_countdown.rpc()
-	timer.timeout.connect(func(): 
-		self.player.toggle_lock_movement.rpc()
-		self.player.hide_timer.rpc())
-	countdown.timeout.connect(func(): 
-		self.player.hide_countdown.rpc()
-		self.player.show_timer.rpc()
-		self.player.unlock_movement.rpc()
-		timer.start())
+	ui.show_countdown()
+	countdown.timeout.connect(on_countdown_timeout)
+	timer.timeout.connect(on_timer_timeout)
+	self.player.lock_movement()
+	
+	items = [
+		Color(1, 0, 0),
+		Color(0, 1, 0),
+		Color(0, 0, 1),
+				]
+				
+	if is_multiplayer_authority():
+		items.shuffle()
+		for item in items:
+			Level.spawn_item.rpc(item)
+		start_countdown.rpc()
+		
+@rpc("any_peer", "call_local", "reliable")
+func start_countdown():
 	countdown.start()
+
+func on_countdown_timeout() -> void:
+	ui.hide_countdown()
+	player.unlock_movement()
+	ui.show_timer()
+	timer.start()
+
+func on_timer_timeout() -> void:
+	ui.hide_timer()
+	player.lock_movement.rpc()
+	Level.add_child(DRAW_SCENE.instantiate())
+	ui.queue_free()
 	
 func set_player(player: Player) -> void:
-	self.player = player
+	if is_multiplayer_authority():
+		self.player = player
 
 func _physics_process(delta: float) -> void:
-	if self.player != null:
-		player.update_label_countdown.rpc(countdown.time_left)
-		player.update_label_timer.rpc(timer.time_left)
-
+	if not countdown.is_stopped() or not timer.is_stopped():
+		if is_multiplayer_authority():
+			ui.update_label_countdown.rpc(countdown.time_left)
+			ui.update_label_timer.rpc(timer.time_left)
+			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

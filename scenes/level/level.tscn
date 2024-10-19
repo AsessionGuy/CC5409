@@ -96,6 +96,7 @@ shape = SubResource("BoxShape3D_p6f80")
 mesh = SubResource("PlaneMesh_s5ult")
 
 [node name="Aisles" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [node name="AisleA" type="Node3D" parent="Aisles"]
 
@@ -124,29 +125,6 @@ collision_mask = 7
 transform = Transform3D(5, -1.89593e-07, 1.14884e-06, -3.27463e-07, 4.5052, 2.16869, -1.11738e-06, -2.16869, 4.5052, 40.2906, 0.000499725, 44.7108)
 collision_layer = 7
 collision_mask = 7
-
-[node name="AisleA-old" type="Node3D" parent="Aisles"]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
-visible = false
-
-[node name="ShelfA1" parent="Aisles/AisleA-old" instance=ExtResource("2_g3g6l")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 70, 0, 0)
-
-[node name="ShelfA2" parent="Aisles/AisleA-old" instance=ExtResource("2_g3g6l")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 60, 0, 0)
-
-[node name="ShelfA3" parent="Aisles/AisleA-old" instance=ExtResource("2_g3g6l")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 0, 0)
-
-[node name="ShelfA4" parent="Aisles/AisleA-old" instance=ExtResource("2_g3g6l")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 40, 0, 0)
-
-[node name="ShelfA5" parent="Aisles/AisleA-old" instance=ExtResource("2_g3g6l")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 30, 0, 0)
-
-[node name="ShelfA6" parent="Aisles/AisleA-old" instance=ExtResource("2_g3g6l")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 20, 0, 0)
 
 [node name="AisleB" type="Node3D" parent="Aisles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
