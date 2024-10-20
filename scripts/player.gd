@@ -16,6 +16,17 @@ const ACCELERATION = 2.0
 @onready var spring_arm_3d: SpringArm3D = %SpringArm3D
 
 @onready var can_move: bool = true
+@onready var objects_to_interact = Array()
+@onready var can_interact: bool = false
+@onready var object_in_hand = false
+@onready var object_index = -1
+
+var object_anchor
+
+
+@onready var skeleton = $AnimatedPlayer/RootNode/CharacterArmature/Skeleton3D
+
+
 
 var player_data
 
@@ -70,10 +81,10 @@ func handle_animations(delta):
 #@onready var physical_bone_simulator_3d: PhysicalBoneSimulator3D = $PhysicsPlayer/RootNode/CharacterArmature/Skeleton3D/PhysicalBoneSimulator3D
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	animationtree.active = true
-	#update_tree.rpc()
-	#ui.hide_countdown()
-	#ui.hide_timer()
+	animationtree.active = true	
+	object_anchor = skeleton.find_bone("Thumb3.R")
+	
+	
 
 @rpc("any_peer", "call_local")
 func lock_movement():
@@ -109,16 +120,24 @@ func _physics_process(delta: float) -> void:
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_dir := (-1 if Input.is_action_pressed("move_forward") else 0) + (1 if Input.is_action_pressed("move_backward") else 0)
 		var run_bool := Input.is_action_pressed("run")
-		interacting = Input.is_action_just_pressed("test") or interacting
+		interacting = (Input.is_action_just_pressed("test")  and can_interact and not object_in_hand) or  interacting
 		var direction := (transform.basis * Vector3(0, 0, input_dir)).normalized()
 		
+		
+	
 		if interacting:
 			current_anim = INTERACT
+			
+			if not object_in_hand:
+				object_in_hand = objects_to_interact[object_index]
+			
 			velocity.x = 0
 			velocity.z = 0
+			object_in_hand.player_took.rpc(self)
+
 		
 		elif direction:
-			print(run_bool)
+			#print(run_bool)
 			current_anim = RUN if run_bool else WALKING
 			velocity.x = direction.x * SPEED * delta * (2 if current_anim == RUN else 1)
 			velocity.z = direction.z * SPEED * delta * (2 if current_anim == RUN else 1)
@@ -158,6 +177,13 @@ func _input(event: InputEvent) -> void:
 			
 		if event.is_action_pressed("ui_accept"):
 			Debug.add_message("Jump", 1)	
+			
+		if event.is_action_pressed("add_index"):
+			add_index(1)
+		elif event.is_action_pressed("less_index"):
+			add_index(-1)
+		
+	
 		
 @rpc("authority", "call_local")
 func jump() -> void:
@@ -192,5 +218,41 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 		interacting = false
 		current_anim = IDLE
 
+func add_object_for_interaction(object: Node3D):
+	objects_to_interact.append(object)
+	print("Objects after appending: ", objects_to_interact)
+	can_interact = true
+	print(object.taken)
+	
+	if objects_to_interact.size() == 1:
+		object_index = 0
+		update_selected()
+	
+func remove_object_for_interaction(object: Node3D):
+	object.unselected()
+	objects_to_interact.erase(object)
+	print("Objects after deletion: ", objects_to_interact)
+	if objects_to_interact.size() == 0:
+		can_interact = false
+		object_index = -1		
+	elif object_index > objects_to_interact.size():
+		object_index = objects_to_interact.size() -1
+		update_selected()
 		
-		
+func add_index(way: int):
+	
+	if objects_to_interact.size() == 0:
+		return 
+	
+	objects_to_interact[object_index].unselected()
+	object_index = (object_index + way) % objects_to_interact.size()
+	update_selected()
+
+func update_selected():
+	objects_to_interact[object_index].selected()
+
+# function to get the position of our anchor, the right thumb of the player
+func give_object_anchor_pos():
+	var local_bone_transform : Transform3D = skeleton.get_bone_global_pose(object_anchor)
+	var global_bone_pos : Vector3 = skeleton.to_global(local_bone_transform.origin)
+	return global_bone_pos
