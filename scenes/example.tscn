@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://udauvnlsoefo"]
+
+[ext_resource type="PackedScene" uid="uid://c8lurflvsqpyf" path="res://scenes/shopping_cart.tscn" id="1_viu5i"]
+[ext_resource type="PackedScene" uid="uid://buov8g04dmccl" path="res://scenes/snackers/Cereal_A.tscn" id="3_l4u2a"]
+[ext_resource type="PackedScene" uid="uid://p6vomomw7flt" path="res://scenes/snackers/Cookies_A.tscn" id="4_wkmyj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8l556"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v1pxc"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Cart" parent="." instance=ExtResource("1_viu5i")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.94387, 0.330317, 0, -0.330317, 0.94387, 0.102787, 9.06569, 12.9741)
+fov = 97.0
+
+[node name="Products" type="Node3D" parent="."]
+
+[node name="Cereal_A" parent="Products" instance=ExtResource("3_l4u2a")]
+transform = Transform3D(0.961262, -0.275637, 0, 0.275637, 0.961262, 0, 0, 0, 1, 0, 13.1298, 6.22627)
+freeze_mode = 1
+
+[node name="Cookies_A" parent="Products" instance=ExtResource("4_wkmyj")]
+transform = Transform3D(1, 0, 0, 0, 0.95882, -0.284015, 0, 0.284015, 0.95882, 0.934905, 11.5297, 5.98189)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Products"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.984411, 1.96524, -0.263433)
+collision_layer = 4
+collision_mask = 4
+lock_rotation = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Products/RigidBody3D"]
+transform = Transform3D(0.853326, 0, 0, 0, 0.853326, 0, 0, 0, 0.853326, -0.00798714, 3.68494, 5.83866)
+mesh = SubResource("BoxMesh_8l556")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Products/RigidBody3D"]
+transform = Transform3D(0.853326, 0, 0, 0, 0.853326, 0, 0, 0, 0.853326, -0.00798714, 3.68494, 5.83866)
+shape = SubResource("BoxShape3D_v1pxc")
+metadata/_edit_group_ = true

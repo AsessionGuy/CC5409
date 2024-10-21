@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=4 uid="uid://p6vomomw7flt"]
+
+[ext_resource type="Material" path="res://assets/snackers/gltf/Snackers.material" id="1"]
+
+[sub_resource type="ArrayMesh" id="8"]
+resource_name = "Snackies_Cookies_A"
+_surfaces = [{
+"aabb": AABB(-0.0934033, -0.0687536, -0.0131633, 0.186807, 0.137507, 0.0263267),
+"attribute_data": PackedByteArray("AICRPgBAED8AINM+AOBLPwCg1D4AAEs/AKDUPgDgDj8AoMs+AEAQPwAg0z4AAC0/AKDUPgAALD8AoNQ+AOAtPwCAhj4AAEs/AICGPgDgDj8AAIg+AOBLPwCg1z4AwDE/AICGPgAALD8AgIY+AOAtPwAAiD4A4Cw/AKDXPgDATj8AwMw+AABJPwBgjj4AAEk/AGCOPgDALz8AwMw+AMAvPwBgjj4AwBA/AGCOPgDATj8AwMw+AMAQPwDAzD4AwE4/AMDMPgAgKj8AYI4+ACAqPwAAzT4A4C0/AADNPgAALD8AII4+AAAsPwAgjj4A4C0/ACCOPgAASz8AII4+AOBMPwAAzT4A4Ew/AADNPgAASz8AgJE+AOAOPwCgyz4A4A4/AADVPgDAMT8AANU+AMBOPw=="),
+"format": 34359742487,
+"index_count": 120,
+"index_data": PackedByteArray("DgAZABwAAQAXACAAGwAYAAUAHwAVAAoAEQAeAAoAHgAfAAoAEwAaAAUAGgAbAAUAAQAhABAAAQAgACEADgAdABIADgAcAB0AGwAdABwAGwAaAB0AGgASAB0AGgATABIAHwAhACAAHwAeACEAHgAQACEAHgARABAAFQAgABcAFQAfACAAGAAcABkAGAAbABwAGAAUABYAGAAZABQAEgAQABEAEgATABAAAgATAAcAAgAQABMAFgAGABgAFgADAAYAEQANABIAEQAIAA0ACQAZAAwACQAUABkADwAkAAsADwAlACQAAAAjAAQAAAAiACMA"),
+"material": ExtResource("1"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 38,
+"vertex_data": PackedByteArray("77Cyva7OjL2wTPev77Cyva7OjL2wTPev77Cyva7OjL2wTPev77Cyva7OjL2wTPev77Cyva7OjD2wTPev77Cyva7OjD2wTPev77Cyva7OjD2wTPev77Cyva7OjD2wTPev77CyPa7OjL2wTPev77CyPa7OjL2wTPev77CyPa7OjL2wTPev77CyPa7OjL2wTPev77CyPa7OjD2wTPev77CyPa7OjD2wTPev77CyPa7OjD2wTPev77CyPa7OjD2wTPevChCXvUopdb0Oq1e8ChCXPUopdb0Oq1e8ChCXPVQpdT0Oq1e8ChCXvVQpdT0Oq1e8ChCXPUopdb0Oq1c8ChCXPUopdb0Oq1c8ChCXvUopdb0Oq1c8ChCXvUopdb0Oq1c8ChCXvVQpdT0Oq1c8ChCXPVQpdT0Oq1c8ChCXvYhGgD1fx4+7ChCXvYhGgD1ex487ChCXPYhGgD1ex487ChCXPYhGgD1fx4+7ChCXPYZGgL1fx4+7ChCXPYZGgL1ex487ChCXvYZGgL1ex487ChCXvYZGgL1fx4+7OEq/va7OjL2wTPevOEq/va7OjD2wTPevOEq/Pa7OjL2wTPevOEq/Pa7OjD2wTPevvN2u1s9nwOC83a7WAgFJpbzdrtakUkIhvN2u1g4HQaG83VIper3k8rzdUikCAbLZvN1SKQ4Hut283VIppFK/X0QirtZ8PtNpRCKu1ng8hMJEIq7WaDR+v0QirtZuN2azRCJSKXg8eLxEIlIpfD4uF0QiUiloNH6/RCJSKW43lstSqC6WQCB8vq5XLpYEAp7PrlfSaQQCXq9SqNJpQCCAwCoVsthMJoTCKhWy2EIheLzW6rLYDAZYrNbqstgOB57P1upOJwQCns8qFU4nQCB8vkIh2m0qFZLJIhG6XSoVksne7rpdKhVqtb7e2m0qFWq1vt4mkioVksne7kaiKhWSySIRRqIqFWq1QiEmkioVarUAAAAA/3///wAAAAD/f///AAAAAAAAfr8AAAAAAAB+vw==")
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_il7rh"]
+size = Vector3(1.41917, 1.895, 0.330278)
+
+[node name="Cookies_A" type="RigidBody3D"]
+collision_layer = 8
+collision_mask = 12
+lock_rotation = true
+
+[node name="Cookies_A" type="MeshInstance3D" parent="."]
+transform = Transform3D(12.0377, 0, 0, 0, 12.0377, 0, 0, 0, 12.0377, -0.000794384, 0.000459957, -0.00616888)
+mesh = SubResource("8")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-5.29356e-08, -1.21102, 0, 1.21102, -5.29356e-08, 0, 0, 0, 1.21102, 0.000251528, 0.0313115, -0.000388436)
+shape = SubResource("BoxShape3D_il7rh")
+metadata/_edit_group_ = true
