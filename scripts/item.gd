@@ -2,7 +2,6 @@ extends CustomRigidBody3D
 
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 @onready var players_inside = Array()
-@onready var light = $OmniLight3D
 @onready var taken = false
 
 
