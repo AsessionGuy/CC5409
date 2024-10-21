@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfv54w3a7o2hm"]
+[gd_scene load_steps=6 format=3 uid="uid://cfv54w3a7o2hm"]
 
 [ext_resource type="Script" path="res://scripts/cart.gd" id="1_ffn2b"]
 [ext_resource type="PackedScene" uid="uid://c8lurflvsqpyf" path="res://scenes/shopping_cart.tscn" id="2_ndqjn"]
@@ -8,6 +8,9 @@ size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_st4b3"]
 size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_okuu2"]
+size = Vector3(4.11963, 6.19983, 6.15424)
 
 [node name="CartScene" type="RigidBody3D"]
 script = ExtResource("1_ffn2b")
@@ -45,6 +48,7 @@ metadata/_edit_group_ = true
 
 [node name="Product3" type="Node3D" parent="Products"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0879169, -0.417781, 0.117658)
+visible = false
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Products/Product3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58035, 1.0652)
@@ -59,3 +63,7 @@ shape = SubResource("BoxShape3D_st4b3")
 metadata/_edit_group_ = true
 
 [node name="Cart" parent="." instance=ExtResource("2_ndqjn")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0474324, 3.09057, 5.66299)
+shape = SubResource("BoxShape3D_okuu2")

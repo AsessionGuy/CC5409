@@ -93,6 +93,8 @@ func set_taken(new_value):
 	taken = new_value
 	$Area3D/CollisionShape3D.disabled = new_value
 	$CollisionShape3D.disabled = new_value
+	
+
 
 
 	

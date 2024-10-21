@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=4 uid="uid://c8lurflvsqpyf"]
+[gd_scene load_steps=10 format=4 uid="uid://c8lurflvsqpyf"]
 
 [ext_resource type="Script" path="res://scripts/cart.gd" id="1_wjod7"]
+[ext_resource type="Script" path="res://scenes/area_3d_item.gd" id="2_eys6a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3uulh"]
 resource_name = "_crayfishdiffuse.001"
@@ -138,6 +139,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.15759, 1.3288)
 light_energy = 0.0
 
 [node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("2_eys6a")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.87933, -0.963654)
