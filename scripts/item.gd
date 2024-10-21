@@ -2,16 +2,23 @@ extends CustomRigidBody3D
 
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 @onready var players_inside = Array()
-@onready var light = $OmniLight3D
 @onready var taken = false
 
 var player_owner = false
 
-
+var player_owner
+const OUTLINE = preload("res://resources/outline.gdshader")
 var new_material = StandardMaterial3D.new()
+var shader_material = ShaderMaterial.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	shader_material.shader = OUTLINE
+	shader_material.set_shader_parameter("size", 1.0)
+	#mesh_instance_3d.material_override = shader_material
+	#shader_material.next_pass = new_material
 	mesh_instance_3d.material_override = new_material
+	new_material.next_pass = shader_material
+	
 	pass # Replace with function body.
 
 @rpc("authority", "call_local")
@@ -54,12 +61,14 @@ func _on_area_3d_area_exited(area: Area3D) -> void:
 # function to activate light to simulate that the player is 
 # aiming at the object
 func selected():
-	light.light_energy = 20
+	shader_material.set_shader_parameter("size", 1.5)
+	#light.light_energy = 20
 
 # function to deactivate light, the player is not aiming
 # at the object
 func unselected():
-	light.light_energy = 0
+	shader_material.set_shader_parameter("size", 1.0)
+	#light.light_energy = 0
 	
 # send position with rpc
 @rpc("any_peer", "call_remote", "reliable")

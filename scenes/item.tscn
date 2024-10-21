@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/item.gd" id="1_tdnav"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_pdgel"]
+[sub_resource type="BoxMesh" id="BoxMesh_8aegy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sa3xr"]
 
@@ -12,7 +12,7 @@
 script = ExtResource("1_tdnav")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_pdgel")
+mesh = SubResource("BoxMesh_8aegy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_sa3xr")
@@ -22,11 +22,6 @@ shape = SubResource("BoxShape3D_sa3xr")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 1.5, 0, 0)
 shape = SubResource("BoxShape3D_tod63")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.72257e-05, -0.554754)
-light_energy = 0.0
-omni_range = 1.0
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
