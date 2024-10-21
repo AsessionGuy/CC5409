@@ -22,6 +22,8 @@ const ACCELERATION = 2.0
 @onready var object_index = -1
 
 var object_anchor
+var taking 
+var releasing
 
 
 @onready var skeleton = $AnimatedPlayer/RootNode/CharacterArmature/Skeleton3D
@@ -41,12 +43,13 @@ var run_val = 0
 var walk_val = 0
 var interact_val = 0
 
+var start_interacting := false
 var interacting := false
+
 
 var idle = true
 var running = false
 var walking = false
-var interaction = false
 
 func handle_animations(delta):
 	match current_anim:
@@ -55,24 +58,24 @@ func handle_animations(delta):
 			idle = true
 			running = false
 			walking = false
-			interaction = false
+			interacting = false
 		WALKING:
 			#print("walking")
 			idle = false
 			walking = true
 			running = false
-			interaction = false
+			interacting = false
 		RUN:
 			#print("running")
 			idle = false 
 			walking = false
 			running = true
-			interaction = false
+			interacting = false
 		INTERACT:
 			idle = false
 			walking = false
 			running = false
-			interaction = true
+			interacting = true
 			
 			
 
@@ -107,7 +110,6 @@ func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority() and can_move:
 		handle_animations(delta)
 
-		
 		# Add the gravity.
 		if not is_on_floor():
 			velocity += get_gravity() * delta
@@ -120,22 +122,31 @@ func _physics_process(delta: float) -> void:
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_dir := (-1 if Input.is_action_pressed("move_forward") else 0) + (1 if Input.is_action_pressed("move_backward") else 0)
 		var run_bool := Input.is_action_pressed("run")
-		interacting = (Input.is_action_just_pressed("test")  and can_interact and not object_in_hand) or  interacting
+		start_interacting = (Input.is_action_just_pressed("test") and can_interact) 
 		var direction := (transform.basis * Vector3(0, 0, input_dir)).normalized()
 		
-		
-	
-		if interacting:
+		if start_interacting:
+			interacting = true 
 			current_anim = INTERACT
 			
 			if not object_in_hand:
 				object_in_hand = objects_to_interact[object_index]
-			
+				object_in_hand.player_took.rpc(self)
+				set_collision_shape_disabled_status.rpc(true)
+				
+				
+			else:
+				set_collision_shape_disabled_status.rpc(false)
+				object_in_hand.player_release.rpc()
+				object_in_hand = false
+				
 			velocity.x = 0
 			velocity.z = 0
-			object_in_hand.player_took.rpc(self)
-
 		
+		elif interacting:
+		
+			velocity.x = 0
+			velocity.z = 0
 		elif direction:
 			#print(run_bool)
 			current_anim = RUN if run_bool else WALKING
@@ -149,7 +160,7 @@ func _physics_process(delta: float) -> void:
 		send_position.rpc(global_position, velocity)
 		
 		
-		send_run_value.rpc(idle,running,walking,interaction, input_dir)
+		send_run_value.rpc(idle,running,walking,interacting, input_dir)
 	
 	
 		spring_arm_3d.rotation.x = pitch * delta
@@ -199,6 +210,10 @@ func send_position(pos, vel):
 func send_rotation(rot: Quaternion):
 	rotation = rot.slerp(transform.basis.get_rotation_quaternion(), 0.5).get_euler()
 	
+@rpc("any_peer", "call_local", "reliable")
+func set_collision_shape_disabled_status(status):
+	$Area3D/CollisionShape3D.disabled = status
+	
 @rpc("any_peer","call_local", "reliable")
 func send_run_value(idle, running, walking, interaction, direction):
 	animationtree["parameters/StateMachine/conditions/idle"] = idle
@@ -220,9 +235,9 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 
 func add_object_for_interaction(object: Node3D):
 	objects_to_interact.append(object)
-	print("Objects after appending: ", objects_to_interact)
+	#print("Objects after appending: ", objects_to_interact)
 	can_interact = true
-	print(object.taken)
+	#print(object.taken)
 	
 	if objects_to_interact.size() == 1:
 		object_index = 0
@@ -231,13 +246,15 @@ func add_object_for_interaction(object: Node3D):
 func remove_object_for_interaction(object: Node3D):
 	object.unselected()
 	objects_to_interact.erase(object)
-	print("Objects after deletion: ", objects_to_interact)
+	#fprint("Objects after deletion: ", objects_to_interact)
 	if objects_to_interact.size() == 0:
-		can_interact = false
+		can_interact = false if not object_in_hand else true
 		object_index = -1		
 	elif object_index > objects_to_interact.size():
 		object_index = objects_to_interact.size() -1
 		update_selected()
+		
+	print("Objetos para interactuar: ", objects_to_interact)
 		
 func add_index(way: int):
 	
@@ -256,3 +273,7 @@ func give_object_anchor_pos():
 	var local_bone_transform : Transform3D = skeleton.get_bone_global_pose(object_anchor)
 	var global_bone_pos : Vector3 = skeleton.to_global(local_bone_transform.origin)
 	return global_bone_pos
+
+
+func cart_anchor_pos():
+	return $CartAnchor.position

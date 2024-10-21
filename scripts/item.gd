@@ -5,8 +5,8 @@ extends CustomRigidBody3D
 @onready var light = $OmniLight3D
 @onready var taken = false
 
+var player_owner = false
 
-var player_owner
 
 var new_material = StandardMaterial3D.new()
 # Called when the node enters the scene tree for the first time.
@@ -27,23 +27,29 @@ func _process(delta: float) -> void:
 
 		position = dummy
 
+
 # function to identify when a player enters an area (body_entered does not work)
 func _on_area_3d_area_entered(area: Area3D) -> void:
-	#place with function body.
-	# check method
+
 	if area.has_method("give_player"):
+		print("ENTRO ALGUIEN")
 		# get the player, add to known players and tell the 
 		# player that self is available for interaction
 		var player = area.give_player()
 		players_inside.append(player)
 		player.add_object_for_interaction(self)
+		print("Player inside:"  ,players_inside)#place with function body.
+
 
 # same as above but deletion
 func _on_area_3d_area_exited(area: Area3D) -> void:
+
 	if area.has_method("give_player"):
+		print("SALIO ALGUIEN")
 		var player = area.give_player()
 		players_inside.erase(player)
 		player.remove_object_for_interaction(self)
+		print("Players inside:"  ,players_inside)
 
 # function to activate light to simulate that the player is 
 # aiming at the object
@@ -70,6 +76,17 @@ func player_took(player):
 		
 		player_owner = player
 
+@rpc("any_peer", "call_local", "reliable")
+func player_release():
+	
+	position.x += 1
+	position.y += 2
+	position.z += 1
+	
+	set_taken.rpc(false)
+		
+	player_owner = false
+
 # set taken value and disables collision shapes		
 @rpc("any_peer", "call_local", "reliable")
 func set_taken(new_value):
@@ -77,7 +94,5 @@ func set_taken(new_value):
 	$Area3D/CollisionShape3D.disabled = new_value
 	$CollisionShape3D.disabled = new_value
 
-
-	
 
 	
