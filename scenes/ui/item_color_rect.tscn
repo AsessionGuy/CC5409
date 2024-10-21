@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dd5e3w6uwscmr"]
+
+[node name="ColorRect" type="ColorRect"]
+custom_minimum_size = Vector2(100, 50)
+size_flags_horizontal = 4
+size_flags_vertical = 4

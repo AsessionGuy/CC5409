@@ -1,14 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://dolgwnx7rw5se"]
+[gd_scene load_steps=8 format=3 uid="uid://dolgwnx7rw5se"]
 
 [ext_resource type="Script" path="res://scripts/item.gd" id="1_tdnav"]
+[ext_resource type="Shader" path="res://resources/outline.gdshader" id="2_b2chy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ngg6"]
+render_priority = 0
+shader = ExtResource("2_b2chy")
+shader_parameter/normal_threshold = 0.1
+shader_parameter/depth_threshold = 0.05
+shader_parameter/depth_artifact_correction_coef = 2.0
+shader_parameter/outline_color = Vector3(0, 1, 1)
+shader_parameter/enabled = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_860f1"]
+next_pass = SubResource("ShaderMaterial_4ngg6")
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 7.15
+normal_scale = -16.0
+rim = 0.31
+rim_tint = 0.65
+grow_amount = -0.089
 
 [sub_resource type="BoxMesh" id="BoxMesh_8aegy"]
+material = SubResource("StandardMaterial3D_860f1")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sa3xr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tod63"]
 
 [node name="RigidBody3D" type="RigidBody3D"]
+collision_layer = 17
+collision_mask = 17
 script = ExtResource("1_tdnav")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

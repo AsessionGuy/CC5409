@@ -1,6 +1,6 @@
 class_name Player extends CharacterBody3D
 	
-const SPEED = 800.0
+const SPEED = 1200.0
 const JUMP_VELOCITY = 100.0
 const ACCELERATION = 2.0
 
@@ -24,13 +24,11 @@ const ACCELERATION = 2.0
 var object_anchor
 var taking 
 var releasing
-
+var my_items = Array()
 
 @onready var skeleton = $AnimatedPlayer/RootNode/CharacterArmature/Skeleton3D
 
-
-
-var player_data
+var player_data: Statics.PlayerData
 
 enum {IDLE, RUN, WALKING, INTERACT}
 var current_anim = IDLE
@@ -277,3 +275,18 @@ func give_object_anchor_pos():
 
 func cart_anchor_pos():
 	return $CartAnchor.position
+	
+func set_items(items: Array):
+	seed(multiplayer.get_unique_id() % 7)
+	for i in range(2):
+		my_items.append(items.pick_random())
+	for item in my_items:
+		GameController.ui.add_item(item)
+
+func remove_item(item: Item):
+	var color = item.get_color()
+	my_items.erase(color)
+	GameController.ui.remove_item(color)
+	item.delete.rpc()
+	if len(my_items) == 0:
+		GameController.announce_winner.rpc(player_data.name)

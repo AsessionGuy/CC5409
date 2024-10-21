@@ -1,6 +1,6 @@
 class_name CustomRigidBody3D extends RigidBody3D
 
-@onready var player
+@onready var player:Player
 
 func set_player(player: Player):
 	self.player = player

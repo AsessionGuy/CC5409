@@ -133,10 +133,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.04666, 0.576368, 8.19146)
 [node name="VehicleWheel3D4" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.89763, 0.576368, 8.19146)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.15759, 1.3288)
-light_energy = 0.0
-
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]

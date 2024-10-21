@@ -28,6 +28,10 @@ formats/zstd/compression_level=17
 formats/zlib/compression_level=9
 formats/gzip/compression_level=9
 
+[display]
+
+display_server/driver.linuxbsd="wayland"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"

@@ -1,8 +1,12 @@
 extends CustomRigidBody3D
 
 @onready var players_inside = Array()
-@onready var light = $OmniLight3D
 @onready var taken = false
+@onready var cart_mesh: MeshInstance3D = $CartMesh
+
+const OUTLINE = preload("res://resources/outline.gdshader")
+var new_material = StandardMaterial3D.new()
+var shader_material = ShaderMaterial.new()
 
 var player_owner = false
 
@@ -12,6 +16,9 @@ func _ready() -> void:
 	# lock angular movement
 	axis_lock_angular_x = true
 	axis_lock_angular_z = true
+	shader_material.shader = OUTLINE
+	var material = $CartMesh.get_active_material(0)
+	material.next_pass = shader_material
 	pass # Replace with function body.
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,12 +57,14 @@ func _on_area_3d_area_exited(area: Area3D) -> void:
 # function to activate light to simulate that the player is 
 # aiming at the object
 func selected():
-	light.light_energy = 20
+	shader_material.set_shader_parameter("enabled", true)
+	#light.light_energy = 20
 
 # function to deactivate light, the player is not aiming
 # at the object
 func unselected():
-	light.light_energy = 0
+	shader_material.set_shader_parameter("enabled", false)
+	#light.light_energy = 0
 	
 # send position with rpc
 @rpc("any_peer", "call_remote", "reliable")

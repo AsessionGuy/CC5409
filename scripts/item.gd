@@ -1,19 +1,20 @@
-extends CustomRigidBody3D
+class_name Item extends CustomRigidBody3D
 
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 @onready var players_inside = Array()
 @onready var taken = false
 
 var player_owner = false
+var last_player_owner = false
 
-var player_owner
 const OUTLINE = preload("res://resources/outline.gdshader")
 var new_material = StandardMaterial3D.new()
 var shader_material = ShaderMaterial.new()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	shader_material.shader = OUTLINE
-	shader_material.set_shader_parameter("size", 1.0)
+	shader_material.set_shader_parameter("enabled", false)
 	#mesh_instance_3d.material_override = shader_material
 	#shader_material.next_pass = new_material
 	mesh_instance_3d.material_override = new_material
@@ -61,13 +62,13 @@ func _on_area_3d_area_exited(area: Area3D) -> void:
 # function to activate light to simulate that the player is 
 # aiming at the object
 func selected():
-	shader_material.set_shader_parameter("size", 1.5)
+	shader_material.set_shader_parameter("enabled", true)
 	#light.light_energy = 20
 
 # function to deactivate light, the player is not aiming
 # at the object
 func unselected():
-	shader_material.set_shader_parameter("size", 1.0)
+	shader_material.set_shader_parameter("enabled", false)
 	#light.light_energy = 0
 	
 # send position with rpc
@@ -94,6 +95,7 @@ func player_release():
 	
 	set_taken.rpc(false)
 		
+	last_player_owner = player_owner
 	player_owner = false
 
 # set taken value and disables collision shapes		
@@ -103,5 +105,9 @@ func set_taken(new_value):
 	$Area3D/CollisionShape3D.disabled = new_value
 	$CollisionShape3D.disabled = new_value
 
-
+func get_color():
+	return new_material.albedo_color
 	
+@rpc("any_peer", "call_local", "reliable")
+func delete():
+	self.queue_free()

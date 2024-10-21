@@ -1,5 +1,8 @@
 class_name GameUI extends Control
 
+const ITEM_COLOR_RECT = preload("res://scenes/ui/item_color_rect.tscn")
+
+@onready var tab_bar: HBoxContainer = %TabBar
 @onready var label_timer: Label = %LabelTimer
 @onready var label_countdown: Label = %LabelCountdown
 
@@ -37,3 +40,15 @@ func seconds_to_mm_ss(seconds: int) -> String:
 	var minutes = seconds / 60
 	var remaining_seconds = seconds % 60
 	return str(minutes).pad_zeros(2) + ":" + str(remaining_seconds).pad_zeros(2)
+
+func add_item(item):
+	var item_tab_scene = ITEM_COLOR_RECT.instantiate()
+	item_tab_scene.color = item
+	tab_bar.add_child(item_tab_scene)
+
+func remove_item(item):
+	for tab in tab_bar.get_children():
+		var rect: ColorRect = tab
+		if rect.color == item:
+			tab_bar.remove_child(tab)
+			break

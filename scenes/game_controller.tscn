@@ -19,4 +19,14 @@ one_shot = true
 [node name="UI" parent="." instance=ExtResource("2_ttqdc")]
 unique_name_in_owner = true
 
+[node name="MarginContainer2" type="MarginContainer" parent="UI"]
+layout_mode = 2
+
+[node name="TabBar" type="HBoxContainer" parent="UI/MarginContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 15
+
 [editable path="UI"]
