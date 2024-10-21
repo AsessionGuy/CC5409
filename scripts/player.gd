@@ -4,7 +4,7 @@ const SPEED = 1200.0
 const JUMP_VELOCITY = 100.0
 const ACCELERATION = 2.0
 
-
+@onready var ray =$RayCast3D
 @onready var animationtree = $AnimatedPlayer/AnimationTree
 @export var YAW_SENSITIVITY = 0.5
 @export var PITCH_SENSITIVITY = 0.1
@@ -106,6 +106,15 @@ func post_setup():
 
 func _physics_process(delta: float) -> void:				
 	if is_multiplayer_authority() and can_move:
+		if ray.is_colliding():
+			var collider = ray.get_collider()	
+			if collider.has_method("nada"):
+				$Area3D.global_position = collider.global_position
+		else:
+			$Area3D.global_position.y = 1000
+		
+		send_area_position.rpc($Area3D.global_position)
+		
 		handle_animations(delta)
 
 		# Add the gravity.
@@ -120,7 +129,7 @@ func _physics_process(delta: float) -> void:
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_dir := (-1 if Input.is_action_pressed("move_forward") else 0) + (1 if Input.is_action_pressed("move_backward") else 0)
 		var run_bool := Input.is_action_pressed("run")
-		start_interacting = (Input.is_action_just_pressed("test") and can_interact) 
+		start_interacting = (Input.is_action_just_pressed("test") and can_interact and not interacting) 
 		var direction := (transform.basis * Vector3(0, 0, input_dir)).normalized()
 		
 		if start_interacting:
@@ -163,6 +172,10 @@ func _physics_process(delta: float) -> void:
 	
 		spring_arm_3d.rotation.x = pitch * delta
 		spring_arm_3d.rotation.x = clampf(spring_arm_3d.rotation.x, deg_to_rad(-90), deg_to_rad(15))
+		ray.rotation.x = pitch * delta
+		ray.rotation.x = clampf(ray.rotation.x, deg_to_rad(-90), deg_to_rad(15))
+		
+		send_ray_rotation.rpc(ray.rotation.x)
 		rotation.y = yaw * delta
 		
 		send_rotation.rpc(transform.basis.get_rotation_quaternion())
@@ -203,6 +216,13 @@ func send_position(pos, vel):
 	global_position = lerp(global_position, pos, 0.5)
 	velocity = lerp(velocity, vel, 0.5)
 
+@rpc("any_peer", "call_remote", "reliable")
+func send_area_position(pos):
+	$Area3D.global_position = pos
+
+@rpc("any_peer", "call_remote", "reliable")
+func send_ray_rotation(deg):
+	ray.rotation.x = deg
 
 @rpc("any_peer", "call_remote", "reliable")
 func send_rotation(rot: Quaternion):

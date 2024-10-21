@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dolgwnx7rw5se"]
+[gd_scene load_steps=9 format=3 uid="uid://dolgwnx7rw5se"]
 
 [ext_resource type="Script" path="res://scripts/item.gd" id="1_tdnav"]
 [ext_resource type="Shader" path="res://resources/outline.gdshader" id="2_b2chy"]
+[ext_resource type="Script" path="res://scripts/utils/area_3d.gd" id="3_qclc8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ngg6"]
 render_priority = 0
@@ -27,6 +28,7 @@ material = SubResource("StandardMaterial3D_860f1")
 [sub_resource type="BoxShape3D" id="BoxShape3D_sa3xr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tod63"]
+size = Vector3(1.1, 1.1, 1.1)
 
 [node name="RigidBody3D" type="RigidBody3D"]
 collision_layer = 17
@@ -40,9 +42,9 @@ mesh = SubResource("BoxMesh_8aegy")
 shape = SubResource("BoxShape3D_sa3xr")
 
 [node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("3_qclc8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 1.5, 0, 0)
 shape = SubResource("BoxShape3D_tod63")
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

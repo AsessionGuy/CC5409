@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 
 # function to identify when a player enters an area (body_entered does not work)
 func _on_area_3d_area_entered(area: Area3D) -> void:
-
+	selected()
 	if area.has_method("give_player"):
 		print("ENTRO ALGUIEN")
 		# get the player, add to known players and tell the 
@@ -51,7 +51,7 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 
 # same as above but deletion
 func _on_area_3d_area_exited(area: Area3D) -> void:
-
+	unselected()
 	if area.has_method("give_player"):
 		print("SALIO ALGUIEN")
 		var player = area.give_player()
