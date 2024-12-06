@@ -14,6 +14,5 @@ func _ready() -> void:
 		player_list.add_child(player_inst)
 		if player_data.id == multiplayer.get_unique_id():
 			GameController._player = player_inst
-			player_inst.post_setup()
 	
 	GameController.start()

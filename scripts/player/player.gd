@@ -53,7 +53,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
-		_state_machine._physics_process(delta)
+		_state_machine._physics_process.rpc(delta)
 		velocity.y = get_gravity().y
 		send_state.rpc(velocity, rotation)
 	move_and_slide()

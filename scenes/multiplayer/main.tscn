@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5hufqs7sbm01"]
+[gd_scene load_steps=4 format=3 uid="uid://b5hufqs7sbm01"]
 
 [ext_resource type="Script" path="res://scenes/multiplayer/main.gd" id="1_ysfbh"]
 [ext_resource type="PackedScene" uid="uid://54vndema1kqn" path="res://scenes/level/level.tscn" id="2_hcp3u"]
+[ext_resource type="PackedScene" uid="uid://c58y4gjibehkw" path="res://autoloads/game_controller.tscn" id="3_g14hj"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ysfbh")
 
 [node name="Level" parent="." instance=ExtResource("2_hcp3u")]
 unique_name_in_owner = true
+
+[node name="GameController" parent="." instance=ExtResource("3_g14hj")]
