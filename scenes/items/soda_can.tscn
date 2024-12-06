@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1jgjfa38sf2v"]
+
+[ext_resource type="Script" path="res://scripts/rigidbody/item/item.gd" id="1_3aiff"]
+[ext_resource type="PackedScene" uid="uid://b3lls3nvg7kyd" path="res://assets/3d/items/soda_can.glb" id="2_d6xr3"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_tlb6i"]
+height = 0.344432
+radius = 0.111594
+
+[node name="SodaCan" type="RigidBody3D"]
+script = ExtResource("1_3aiff")
+
+[node name="soda_can" parent="." instance=ExtResource("2_d6xr3")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.0136569, 0, 0.0341416)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+shape = SubResource("CylinderShape3D_tlb6i")

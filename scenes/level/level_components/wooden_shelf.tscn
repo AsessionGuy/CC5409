@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://4xkpfxph52ql"]
 
-[ext_resource type="PackedScene" uid="uid://dcpdhg8opffjv" path="res://assets/3d/level_components/wooden-shelf.glb" id="1_656q4"]
+[ext_resource type="PackedScene" uid="uid://cna4jyougvxwc" path="res://assets/3d/level_components/wooden-shelf.glb" id="1_656q4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d6aqh"]
 size = Vector3(4.5, 0.1, 0.4)

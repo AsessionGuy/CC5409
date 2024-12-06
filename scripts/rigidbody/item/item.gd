@@ -1,0 +1,1 @@
+class_name item extends MultiplayerRigidBody3D
