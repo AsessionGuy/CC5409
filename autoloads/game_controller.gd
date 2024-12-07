@@ -26,7 +26,6 @@ func spawn_player() -> void:
 	for player_idx in len(player_list):
 		var player: Player = player_list[player_idx]
 		player.global_position = player_spawners[player_idx].global_position
-		Debug.log(player.get_multiplayer_authority())
 		if player.is_multiplayer_authority():
 			player.post_setup()
 

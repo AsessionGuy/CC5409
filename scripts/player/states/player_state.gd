@@ -1,10 +1,12 @@
 class_name PlayerState extends State
 
-@onready var player: Player 
-@onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var player: Player
+@onready var animation_player:= %AnimationPlayer
+@onready var animation_tree:AnimationNodeStateMachinePlayback = %AnimationTree["parameters/playback"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	await(owner.ready)
-	player = _state_machine.player
-	assert(player != null)
+	pass
+
+func physics_process(_delta: float) -> void:
+	pass

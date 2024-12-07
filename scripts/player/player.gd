@@ -1,11 +1,5 @@
 class_name Player extends CharacterBody3D
 
-@export var move_speed = 50
-@export var tilt_upper_limit := PI / 3.0
-@export var tilt_lower_limit := -PI / 8.0
-@export var acceleration := 100.0
-@export_range(0.0, 1.0) var mouse_sensitivity := 0.5
-
 var _camera_input_direction := Vector2.ZERO
 @onready var _camera := Camera3D.new()
 
@@ -15,9 +9,10 @@ var id
 @onready var _spring_arm_3d: SpringArm3D = %SpringArm3D
 @onready var _camera_pivot: Node3D = %SpringArm3D
 @onready var _state_machine: StateMachine = %StateMachine
+@onready var _controller: PlayerController
 
 func _ready() -> void:
-	_state_machine.player = self
+	pass
 
 func setup(player_data: Statics.PlayerData) -> void:
 	set_online_player_data(player_data)
@@ -47,13 +42,12 @@ var target_velocity = Vector3.ZERO
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
-		var is_camera_motion := event is InputEventMouseMotion
-		if is_camera_motion:
-			_camera_input_direction = event.screen_relative * mouse_sensitivity
+		_controller._unhandled_input(event)
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
-		_state_machine._physics_process.rpc(delta)
+		_state_machine._physics_process(delta)
+		_controller._physics_process(delta)
 		velocity.y = get_gravity().y
 		send_state.rpc(velocity, rotation)
 	move_and_slide()
