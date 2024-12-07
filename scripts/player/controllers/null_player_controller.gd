@@ -2,11 +2,11 @@ class_name NullPlayerController extends PlayerController
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	super()
 
-func _unhandled_input(event: InputEvent) -> void:
+func unhandled_input(event: InputEvent) -> void:
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(_delta: float) -> void:
+func physics_process(_delta: float) -> void:
 	pass

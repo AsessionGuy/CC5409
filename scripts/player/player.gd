@@ -1,8 +1,8 @@
 class_name Player extends CharacterBody3D
 
-var _camera_input_direction := Vector2.ZERO
 @onready var _camera := Camera3D.new()
 
+var _camera_input_direction := Vector2.ZERO
 var index
 var id
 
@@ -40,14 +40,18 @@ func send_state(vel: Vector3, rot: Vector3):
 
 var target_velocity = Vector3.ZERO
 
+func _input(event: InputEvent) -> void:
+	if is_multiplayer_authority():
+		_controller.input(event)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
-		_controller._unhandled_input(event)
+		_controller.unhandled_input(event)
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
-		_state_machine._physics_process(delta)
-		_controller._physics_process(delta)
+		_state_machine.physics_process(delta)
+		_controller.physics_process(delta)
 		velocity.y = get_gravity().y
 		send_state.rpc(velocity, rotation)
 	move_and_slide()

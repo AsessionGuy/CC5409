@@ -9,7 +9,5 @@ func enter(previous_state_path: String, data := {}) -> void:
 
 func physics_update(_delta: float) -> void:	
 	super(_delta)
-	if not is_zero_approx(Input.get_vector("move_left", "move_right", "move_forward", "move_backward").length()):
-		finished.emit("WalkingWithoutCartState")
 	
 	

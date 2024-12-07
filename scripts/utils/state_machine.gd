@@ -43,6 +43,6 @@ func _process(delta: float) -> void:
 func _send_state(st: String):
 	state = get_node(st)
 	
-func _physics_process(delta: float) -> void:
+func physics_process(delta: float) -> void:
 	_send_state.rpc(state.name)
 	state.physics_update(delta)
