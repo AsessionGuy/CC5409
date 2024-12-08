@@ -16,6 +16,9 @@ func physics_update(_delta: float) -> void:
 	if len(player.get_node("CartAnchor").get_children()):
 		finished.emit("WithCartState")
 	
+	elif player.is_interacting:
+		finished.emit("InteractingWithoutCartState")
+	
 	elif speed > 12:
 		finished.emit("RunningWithoutCartState")
 	

@@ -90,7 +90,7 @@ height = 0.344432
 radius = 0.111594
 
 [node name="SodaCan" type="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.859044, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.911661, 0)
 collision_layer = 9
 collision_mask = 9
 script = ExtResource("1_3aiff")

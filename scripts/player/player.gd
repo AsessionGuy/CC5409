@@ -11,6 +11,8 @@ var id
 @onready var _state_machine: StateMachine = %StateMachine
 @onready var _controller: PlayerController
 
+var is_interacting = false
+
 func _ready() -> void:
 	_camera.clear_current(false)
 

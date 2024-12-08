@@ -23,9 +23,11 @@ func unhandled_input(event: InputEvent) -> void:
 
 func input(event: InputEvent) -> void:
 	if event.is_action_pressed("run"):
-		move_speed *= 2
+		move_speed = 20
 	elif event.is_action_released("run"):
-		move_speed /= 2
+		move_speed = 10
+	if event.is_action_pressed("interact"):
+		player.is_interacting = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_process(_delta: float) -> void:
@@ -40,5 +42,5 @@ func physics_process(_delta: float) -> void:
 	var right := player._camera.global_basis.x
 	var move_direction := forward * raw_input.y
 	move_direction.y = 0.0
-	move_direction = move_direction.normalized()
+	move_direction = move_direction.normalized() * int(not player.is_interacting)
 	player.velocity = player.velocity.move_toward(move_direction * move_speed, acceleration * _delta)
