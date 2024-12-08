@@ -23,6 +23,7 @@ size = Vector3(250, 0.001, 50)
 size = Vector2(250, 50)
 
 [node name="Level" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_jwiq3")
 
 [node name="Floor" type="StaticBody3D" parent="."]
@@ -388,7 +389,7 @@ script = null
 
 [node name="PlayerSpawners" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.522, 6.38161, 38.2064)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111.849, 5.16215, 40.7064)
 
 [node name="PlayerSpawner1" type="Node3D" parent="PlayerSpawners"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 4)
@@ -397,6 +398,9 @@ script = ExtResource("6_3r81b")
 [node name="PlayerSpawner2" type="Node3D" parent="PlayerSpawners"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, -13.7935)
 script = ExtResource("6_3r81b")
+
+[node name="Carts" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [node name="Players" type="Node3D" parent="."]
 unique_name_in_owner = true

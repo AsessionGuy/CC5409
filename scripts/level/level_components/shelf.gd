@@ -17,6 +17,6 @@ func spawn_item(item: String) -> void:
 	for i in range(MAX_ROWS):
 		for j in range(MAX_COLS):
 			var spawnpoint: Node3D = item_spawnpoints.get_child(4*SIDE + i).get_child(j)
-			GameController.spawn_item.rpc(item, spawnpoint.global_position, spawnpoint.global_rotation)
+			GameController.spawn_item.rpc(item, spawnpoint.global_position)
 	SIDE += 1        
 	
