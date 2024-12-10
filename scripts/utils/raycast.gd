@@ -14,5 +14,12 @@ func _physics_process(delta: float) -> void:
 		else:
 			collider.set_outline(false)
 	collider = new_collider
+	if is_multiplayer_authority():
+		send_state.rpc(global_position, global_rotation, target_position)
 	
+@rpc("authority", "call_remote", "unreliable",4)
+func send_state(pos: Vector3, rot: Vector3, target_pos) -> void:
+	global_position = pos
+	global_rotation = rot
+	target_position = target_pos
 	

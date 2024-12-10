@@ -8,6 +8,8 @@ class_name PlayerController extends Node
 @export var acceleration := 100.0
 @export_range(0.0, 1.0) var mouse_sensitivity := 0.5
 
+var interactable
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await(owner.ready)
@@ -28,6 +30,13 @@ func input(event: InputEvent) -> void:
 		move_speed = 10
 	if event.is_action_pressed("interact"):
 		player.is_interacting = true
+		if interactable:
+			interactable.unset_player.rpc(player.index)
+		else:
+			if player._ray_cast_3d.collider:
+				interactable = player._ray_cast_3d.collider
+				interactable.set_player.rpc(player.index)
+			
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_process(_delta: float) -> void:
@@ -44,3 +53,7 @@ func physics_process(_delta: float) -> void:
 	move_direction.y = 0.0
 	move_direction = move_direction.normalized() * int(not player.is_interacting)
 	player.velocity = player.velocity.move_toward(move_direction * move_speed, acceleration * _delta)
+
+@rpc("any_peer","call_local","reliable")
+func reset_interactable() -> void:
+	interactable = null

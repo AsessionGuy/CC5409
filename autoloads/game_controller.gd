@@ -37,3 +37,8 @@ func start() -> void:
 	if is_multiplayer_authority():
 		spawn_player.rpc()
 		spawn_items()
+
+func get_player_from_index(index: int) -> Player:
+	assert(index < len(level.get_node("Players").get_children()))
+	return level.get_node("Players").get_children()[index]
+		

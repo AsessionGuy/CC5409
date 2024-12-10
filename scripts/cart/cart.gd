@@ -3,6 +3,8 @@ class_name Cart extends VehicleBody3D
 @onready var cart: MeshInstance3D = $Cart
 @onready var outline: MeshInstance3D = $Cart/Outline
 
+var player: Player
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	outline.visible = false
@@ -23,3 +25,14 @@ func send_state() -> void:
 
 func set_outline(active: bool):
 	outline.visible = active
+
+@rpc("any_peer", "call_local", "reliable")
+func set_player(index: int):
+	player = GameController.get_player_from_index(index)
+	Debug.log("setting item " + name + "with player " + str(index), 1)
+	player._controller.set_cart.rpc()
+
+@rpc("any_peer", "call_local", "reliable")
+func unset_player(index: int):
+	player = GameController.get_player_from_index(index)
+	player._controller.unset_cart.rpc()

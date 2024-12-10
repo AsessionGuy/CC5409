@@ -10,6 +10,7 @@ var id
 @onready var _ray_cast_3d: RayCast3D = %RayCast3D
 @onready var _state_machine: StateMachine = %StateMachine
 @onready var _controller: PlayerController
+@onready var _socket: BoneAttachment3D = $AnimatedPlayer/RootNode/CharacterArmature/Skeleton3D/BoneAttachment3D
 
 var is_interacting = false
 
@@ -39,8 +40,8 @@ func set_camera() -> void:
 	_spring_arm_3d.add_child(_camera)
 
 @rpc("authority", "call_remote", "unreliable", 2)
-func send_state(vel: Vector3, rot: Vector3):
-	velocity = vel
+func send_state(pos: Vector3, rot: Vector3):
+	position = pos
 	rotation = rot
 
 var target_velocity = Vector3.ZERO
@@ -58,5 +59,5 @@ func _physics_process(delta: float) -> void:
 		_state_machine.physics_process(delta)
 		_controller.physics_process(delta)
 		velocity.y = get_gravity().y
-		send_state.rpc(velocity, rotation)
+		send_state.rpc(position, rotation)
 	move_and_slide()
