@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=4 uid="uid://xqgj7axeeg8s"]
+[gd_scene load_steps=74 format=4 uid="uid://xqgj7axeeg8s"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_poxi3"]
 [ext_resource type="Script" path="res://scripts/utils/state_machine.gd" id="2_4i2xh"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/player/states/without_cart_state.gd" id="5_ybai7"]
 [ext_resource type="Script" path="res://scripts/player/controllers/null_player_controller.gd" id="7_lehwo"]
 [ext_resource type="Script" path="res://scripts/player/states/interacting_without_cart_state.gd" id="8_73at0"]
+[ext_resource type="Texture2D" uid="uid://1s6stxa4pq62" path="res://assets/2d/crosshair.png" id="11_wvr8s"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_l8kw7"]
 height = 1.81943
@@ -11687,9 +11688,9 @@ mesh = SubResource("ArrayMesh_ljown")
 skin = SubResource("Skin_c0so4")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="AnimatedPlayer/RootNode/CharacterArmature/Skeleton3D"]
-transform = Transform3D(-0.300184, 0.134229, -0.94439, 0.886456, -0.326359, -0.328156, -0.352258, -0.935666, -0.0210199, -0.00200829, -0.00205303, 0.008881)
-bone_name = "Index2.R"
-bone_idx = 42
+transform = Transform3D(-0.300184, 0.134229, -0.94439, 0.886455, -0.326359, -0.328156, -0.352258, -0.935666, -0.0210198, -0.00200829, -0.00205303, 0.008881)
+bone_name = "Wrist.R"
+bone_idx = 40
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedPlayer"]
 unique_name_in_owner = true
@@ -11728,6 +11729,9 @@ collide_with_areas = true
 debug_shape_custom_color = Color(1, 0, 0, 0.490196)
 debug_shape_thickness = 3
 script = ExtResource("2_g6blp")
+
+[node name="Camera3D" type="Camera3D" parent="Camera/CameraTarget/SpringArm3D"]
+unique_name_in_owner = true
 
 [node name="Area3D" type="Area3D" parent="."]
 
@@ -11774,5 +11778,16 @@ script = ExtResource("5_7wtqt")
 unique_name_in_owner = true
 script = ExtResource("7_lehwo")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-unique_name_in_owner = true
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+layout_mode = 2
+texture = ExtResource("11_wvr8s")
+stretch_mode = 3
