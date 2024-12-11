@@ -42,3 +42,5 @@ func get_player_from_index(index: int) -> Player:
 	assert(index < len(level.get_node("Players").get_children()))
 	return level.get_node("Players").get_children()[index]
 		
+func get_cart_from_index(index: int) -> Cart:
+	return level.get_node("Carts").get_children()[index]

@@ -194,7 +194,7 @@ points = PackedVector3Array(-7.00012, -0.624945, -35.6628, -8.48379, -2.10731, -
 points = PackedVector3Array(-7.74243, -2.10731, -37.8858, -8.48379, -12.4864, -29.7335, -7.00106, -12.4864, -29.7335, -8.48379, -11.0021, -26.7675, -7.00106, -2.10731, -34.9199, -8.48379, -2.10731, -34.9199, -7.00106, -11.0021, -26.7675, -8.48379, -5.07292, -36.4023, -7.00106, -3.59062, -37.1435, -7.74243, -11.7448, -31.2159, -6.98775, -12.5796, -26.6677, -8.4971, -12.5796, -26.6677, -8.48379, -2.84897, -37.8858, -8.48379, -11.7448, -31.2159, -7.00106, -3.59062, -33.4374)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qdpuw"]
-size = Vector3(5.06641, 3.42957, 7.23657)
+size = Vector3(5.9502, 4.36908, 7.66406)
 
 [node name="shopping_cart" type="VehicleBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.895341, -3.73109)
@@ -342,11 +342,15 @@ use_as_steering = true
 wheel_radius = 2.945
 wheel_rest_length = 2.173
 
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94499, 3.72506)
+[node name="items" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.98426, 3.72506)
 
 [node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0159621, 4.54987, 3.74841)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0159621, 5.01963, 3.74841)
 shape = SubResource("BoxShape3D_qdpuw")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

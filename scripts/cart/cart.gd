@@ -2,8 +2,11 @@ class_name Cart extends VehicleBody3D
 
 @onready var cart: MeshInstance3D = $Cart
 @onready var outline: MeshInstance3D = $Cart/Outline
+@onready var _items: Node3D = $items
 
 var player: Player
+var index
+var id
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,6 +21,8 @@ func setup(player_data: Statics.PlayerData) -> void:
 
 func set_online_player_data(player_data: Statics.PlayerData) -> void:
 	set_multiplayer_authority(player_data.id)
+	index = player_data.index
+	id = player_data.id
 
 @rpc("authority", "call_remote", "unreliable", 4)
 func send_state() -> void:
@@ -36,3 +41,7 @@ func set_player(index: int):
 func unset_player(index: int):
 	player = GameController.get_player_from_index(index)
 	player._controller.unset_cart.rpc()
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	body.set_cart(index)
+	

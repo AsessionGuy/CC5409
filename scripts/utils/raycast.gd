@@ -8,13 +8,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	var new_collider = get_collider()
-	if new_collider != collider:
-		if new_collider:
-			new_collider.set_outline(true)
-		else:
-			collider.set_outline(false)
-	collider = new_collider
 	if is_multiplayer_authority():
+		if new_collider != collider:
+			if new_collider:
+				new_collider.set_outline(true)
+			else:
+				collider.set_outline(false)
+			collider = new_collider
 		send_state.rpc(global_position, global_rotation, target_position)
 	
 @rpc("authority", "call_remote", "unreliable",4)
