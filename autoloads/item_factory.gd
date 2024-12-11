@@ -10,7 +10,12 @@ func _init() -> void:
 		"cookies": preload("res://scenes/items/cookies_snack.tscn"),
 		"milk": preload("res://scenes/items/milk_box.tscn"),
 		"banana": preload("res://scenes/items/banana.tscn"),
-		"pumpkin": preload("res://scenes/items/pumpkin.tscn")
+		"pumpkin": preload("res://scenes/items/pumpkin.tscn"),
+		"orange": preload("res://scenes/items/orange.tscn"),
+		"pear": preload("res://scenes/items/pear.tscn"),
+		"grapes": preload("res://scenes/items/grapes.tscn"),
+		"coconut": preload("res://scenes/items/coconut.tscn"),
+		"lemon": preload("res://scenes/items/lemon.tscn")
 	}
 
 func get_available_items() -> Array:
