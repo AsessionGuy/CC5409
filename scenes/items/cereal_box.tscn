@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=4 uid="uid://sve1qoamv4bl"]
+
+[ext_resource type="ArrayMesh" uid="uid://buht28bv4qd5m" path="res://resources/items/mesh/cereal_mesh.tres" id="1_7kewi"]
+[ext_resource type="Script" path="res://scripts/rigidbody/item/item.gd" id="1_tciyj"]
+[ext_resource type="Shape3D" uid="uid://dda0r3d81s5xd" path="res://resources/items/shapes/cereal_shape.tres" id="2_c4beg"]
+[ext_resource type="Material" uid="uid://dwk5xajon1rcr" path="res://resources/outline.material" id="3_ummc7"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_xoi7m"]
+_surfaces = [{
+"aabb": AABB(-0.100003, -0.166202, -0.0482138, 0.200006, 0.332405, 0.0964277),
+"attribute_data": PackedByteArray("AGCxPgBAuD4AYCc/AEC4PgDgZD8AIMI+AGCxPgBACT8AYCc/AEAJPwDAST8AINs+AGDKPgBAuD4AYMo+AEC4PgDgZD8AINs+AGDKPgBACT8AYMo+AEAJPwDAST8AIMI+AIAMPwBAuD4AgAw/AEC4PgCgfz8AIMI+AIAMPwBACT8AgAw/AEAJPwCgZD8AINs+AAAAPwBAuD4AAAA/AEC4PgCgfz8AINs+AAAAPwBACT8AAAA/AEAJPwCgZD8AIMI+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAAHAAoAAAAKAAMABgATABYABgAWAAkAEgAMAA8AEgAPABUADQABAAQADQAEABAACAACAA4ACAAOABQAFwARAAUAFwAFAAsA"),
+"material": ExtResource("3_ummc7"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("bc7MPe0wKj7ee0W9bc7MPe0wKj7ee0W9bc7MPe0wKj7ee0W9bc7MPe0wKr7ee0W9bc7MPe0wKr7ee0W9bc7MPe0wKr7ee0W9bc7MPe0wKj7ee0U9bc7MPe0wKj7ee0U9bc7MPe0wKj7ee0U9bc7MPe0wKr7ee0U9bc7MPe0wKr7ee0U9bc7MPe0wKr7ee0U9bc7Mve0wKj7ee0W9bc7Mve0wKj7ee0W9bc7Mve0wKj7ee0W9bc7Mve0wKr7ee0W9bc7Mve0wKr7ee0W9bc7Mve0wKr7ee0W9bc7Mve0wKj7ee0U9bc7Mve0wKj7ee0U9bc7Mve0wKj7ee0U9bc7Mve0wKr7ee0U9bc7Mve0wKr7ee0U9bc7Mve0wKr7ee0U9AIAAAP9/f0D/f/9//P5/QAAAAIAAAH8/AIAAAP9/f0D/f/9//P5/QAAAAYAAAH8//////wAAfz8AgAAA/39/QAAAAIAAAH8//////wAAfz8AgAAA/39/QAAAAYAAAH8/AYAAAP//AAD/f/9//P5/QAAAAIAAAH8/AYAAAP//AAD/f/9///9/PwAAAYAAAH8/AYAAAP//AAD/////AAB/PwAAAIAAAH8/AYAAAP//AAD/////AAB/PwAAAYAAAH8/")
+}]
+
+[node name="CerealBox" type="RigidBody3D"]
+collision_layer = 12
+collision_mask = 12
+script = ExtResource("1_tciyj")
+
+[node name="CerealShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.985616, 0, 0, 0, 0.985616, 0, 0, 0, 0.985616, -0.00305176, -0.00714111, -0.00341797)
+shape = ExtResource("2_c4beg")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(6.26927, 0, 0, 0, 5.39913, 0, 0, 0, 6.53727, 0, 0, 0)
+mesh = ExtResource("1_7kewi")
+
+[node name="outline" type="MeshInstance3D" parent="mesh"]
+mesh = SubResource("ArrayMesh_xoi7m")
