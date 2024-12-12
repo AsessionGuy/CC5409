@@ -343,6 +343,7 @@ wheel_radius = 2.945
 wheel_rest_length = 2.173
 
 [node name="items" type="Node3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.98426, 3.72506)
 
 [node name="Area3D" type="Area3D" parent="."]

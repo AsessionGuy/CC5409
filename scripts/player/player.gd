@@ -23,6 +23,7 @@ func setup(player_data: Statics.PlayerData) -> void:
 func post_setup() -> void:
 	if is_multiplayer_authority():
 		set_camera()
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	else:
 		_ray_cast_3d.enabled = false
 

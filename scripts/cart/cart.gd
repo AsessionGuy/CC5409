@@ -2,7 +2,7 @@ class_name Cart extends VehicleBody3D
 
 @onready var cart: MeshInstance3D = $Cart
 @onready var outline: MeshInstance3D = $Cart/Outline
-@onready var _items: Node3D = $items
+@onready var _items: Node3D = %items
 
 var player: Player
 var index
@@ -33,15 +33,26 @@ func set_outline(active: bool):
 
 @rpc("any_peer", "call_local", "reliable")
 func set_player(index: int):
-	player = GameController.get_player_from_index(index)
-	Debug.log("setting item " + name + "with player " + str(index), 1)
-	player._controller.set_cart.rpc()
+	if not player:
+		if _items.get_child_count() > 0:
+			var item: Item = _items.get_children()[0]
+			var player: Player = GameController.get_player_from_index(index)
+			Debug.log("player " + str(index) + " grabs item " + item.name, 1)
+			item.set_player.rpc(index)
+			player._controller.interactable = item
+		else:
+			player = GameController.get_player_from_index(index)
+			Debug.log("setting item " + name + "with player " + str(index), 1)
+			player._controller.set_cart.rpc()
 
 @rpc("any_peer", "call_local", "reliable")
 func unset_player(index: int):
 	player = GameController.get_player_from_index(index)
 	player._controller.unset_cart.rpc()
+	player._controller.interactable = null
+	player = null
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	body.set_cart(index)
+	if is_multiplayer_authority():
+		body.set_cart.rpc(index)
 	

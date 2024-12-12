@@ -2,7 +2,7 @@ class_name PlayerController extends Node
 
 @onready var player: Player
 
-@export var move_speed = 10
+@export var move_speed = 100
 @export var tilt_upper_limit := PI / 3.0
 @export var tilt_lower_limit := -PI / 3.0
 @export var acceleration := 100.0
@@ -25,9 +25,9 @@ func unhandled_input(event: InputEvent) -> void:
 
 func input(event: InputEvent) -> void:
 	if event.is_action_pressed("run"):
-		move_speed = 20
+		move_speed = 200
 	elif event.is_action_released("run"):
-		move_speed = 10
+		move_speed = 100
 	if event.is_action_pressed("interact"):
 		player.is_interacting = true
 		if interactable:
