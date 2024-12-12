@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=4 uid="uid://h8las3kkb6ia"]
+
+[ext_resource type="Material" path="res://assets/3d/items/snackers/gltf/Snackers.material" id="1"]
+
+[sub_resource type="ArrayMesh" id="5"]
+resource_name = "Snackies_Cereal_A"
+_surfaces = [{
+"aabb": AABB(-0.0971164, -0.163316, -0.0453271, 0.194243, 0.326641, 0.0906542),
+"attribute_data": PackedByteArray("AGCxPgBAuD4AYCc/AEC4PgDgZD8AIMI+AGCxPgBACT8AYCc/AEAJPwDAST8AINs+AGDKPgBAuD4AYMo+AEC4PgDgZD8AINs+AGDKPgBACT8AYMo+AEAJPwDAST8AIMI+AIAMPwBAuD4AgAw/AEC4PgCgfz8AIMI+AIAMPwBACT8AgAw/AEAJPwCgZD8AINs+AAAAPwBAuD4AAAA/AEC4PgCgfz8AINs+AAAAPwBACT8AAAA/AEAJPwCgZD8AIMI+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAAKAAcAAAADAAoABgAWABMABgAJABYAEgAPAAwAEgAVAA8ADQAEAAEADQAQAAQACAAOAAIACAAUAA4AFwAFABEAFwALAAUA"),
+"material": ExtResource("1"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("8OTGPS48Jz7kqDm98OTGPS48Jz7kqDm98OTGPS48Jz7kqDm98OTGPS48J77kqDm98OTGPS48J77kqDm98OTGPS48J77kqDm98OTGPS48Jz7kqDk98OTGPS48Jz7kqDk98OTGPS48Jz7kqDk98OTGPS48J77kqDk98OTGPS48J77kqDk98OTGPS48J77kqDk98OTGvS48Jz7kqDm98OTGvS48Jz7kqDm98OTGvS48Jz7kqDm98OTGvS48J77kqDm98OTGvS48J77kqDm98OTGvS48J77kqDm98OTGvS48Jz7kqDk98OTGvS48Jz7kqDk98OTGvS48Jz7kqDk98OTGvS48J77kqDk98OTGvS48J77kqDk98OTGvS48J77kqDk9/38AAP9/gED/f/9//P6AQAAA/38AAIBA/38AAP9/gED/f/9//P6AQAAAAYAAAIBAAAAAAAAAgED/fwAA/3+AQAAA/38AAIBAAAAAAAAAgED/fwAA/3+AQAAAAYAAAIBAAYAAAP//AAD/f/9//P6AQAAA/38AAIBAAYAAAP//AAD/f/9///+AQAAAAYAAAIBAAYAAAP//AAAAAAAAAACAQAAA/38AAIBAAYAAAP//AAAAAAAAAACAQAAAAYAAAIBA")
+}]
+
+[sub_resource type="BoxShape3D" id="6"]
+size = Vector3(0.19486, 0.326364, 0.0913038)
+
+[node name="cereal_scene" type="RigidBody3D"]
+
+[node name="CerealMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("5")
+
+[node name="CerealShape" type="CollisionShape3D" parent="."]
+shape = SubResource("6")
