@@ -1,1 +1,27 @@
-Soda can by Poly by Google
+- The following models were made by "Poly by Google":
+Soda can
+Toilet Paper
+
+- The following models were made by "loafbrr":
+CerealBox
+JuiceBox
+CookiesSnack
+Chips
+MilkBox
+
+- The following models were made by "sjolle":
+Banana
+Pumpkin
+Orange
+Pear
+Grape
+Coconut
+Lemon
+Lettuce
+Tomato
+Pineapple
+Potato
+Peach
+Onion
+- The following models were made by "S. Paul Michael":
+Shampoo
