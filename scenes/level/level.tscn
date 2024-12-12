@@ -54,7 +54,7 @@ mesh = SubResource("PlaneMesh_f4kuo")
 [node name="Walls" type="Node3D" parent="."]
 
 [node name="Wall1" type="StaticBody3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 25, -70)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.12228e-06, 25, -44.3252)
 collision_layer = 7
 collision_mask = 7
 
@@ -62,6 +62,7 @@ collision_mask = 7
 shape = SubResource("BoxShape3D_p6f80")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, -8.35188e-23, 0, -8.35188e-23, 1, 0, 0, 0)
 mesh = SubResource("PlaneMesh_s5ult")
 
 [node name="Wall2" type="StaticBody3D" parent="Walls"]
