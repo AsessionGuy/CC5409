@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://54vndema1kqn"]
+[gd_scene load_steps=13 format=3 uid="uid://54vndema1kqn"]
 
 [ext_resource type="PackedScene" uid="uid://4xkpfxph52ql" path="res://scenes/level/level_components/wooden_shelf.tscn" id="1_335qb"]
 [ext_resource type="Script" path="res://scripts/level/level.gd" id="1_jwiq3"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bg0uucp760ima" path="res://scenes/level/level_components/fridge.tscn" id="3_i81j3"]
 [ext_resource type="Script" path="res://scripts/utils/player_spawnpoint.gd" id="6_3r81b"]
 [ext_resource type="PackedScene" uid="uid://tsu1ouljepaf" path="res://scenes/level/level_components/checkout_counter.tscn" id="6_eu0ed"]
+[ext_resource type="PackedScene" uid="uid://b3lls3nvg7kyd" path="res://assets/3d/items/soda_can.glb" id="7_dmh2k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yvl3d"]
 size = Vector3(1000, 2, 1000)
@@ -404,3 +405,6 @@ unique_name_in_owner = true
 
 [node name="Players" type="Node3D" parent="."]
 unique_name_in_owner = true
+
+[node name="soda_can" parent="." instance=ExtResource("7_dmh2k")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 95.5171, 9.72924, 26.118)
