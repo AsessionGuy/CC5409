@@ -1,12 +1,9 @@
-[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://der0m1f7v6kc6"]
-
-[ext_resource type="Texture2D" uid="uid://c4higrcvaifbq" path="res://assets/3d/items/fruitsandvegetables/gltf/pineapple01_colortex.png" id="1_xr3j0"]
+[gd_resource type="ArrayMesh" load_steps=3 format=4 uid="uid://der0m1f7v6kc6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_we51l"]
 resource_name = "Material.001"
 cull_mode = 2
 albedo_color = Color(0.884088, 0.765533, 0.639905, 1)
-albedo_texture = ExtResource("1_xr3j0")
 roughness = 0.5
 emission_enabled = true
 

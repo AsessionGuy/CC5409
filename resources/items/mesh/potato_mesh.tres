@@ -1,12 +1,9 @@
-[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://c7ud57yb4kh1g"]
-
-[ext_resource type="Texture2D" uid="uid://duspnwycse0pg" path="res://assets/3d/items/fruitsandvegetables/gltf/potato01_colortex.png" id="1_f4xha"]
+[gd_resource type="ArrayMesh" load_steps=3 format=4 uid="uid://c7ud57yb4kh1g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2hhvr"]
 resource_name = "Material.001"
 cull_mode = 2
 albedo_color = Color(0.289831, 0.235701, 0.0629838, 1)
-albedo_texture = ExtResource("1_f4xha")
 roughness = 0.5
 emission_enabled = true
 

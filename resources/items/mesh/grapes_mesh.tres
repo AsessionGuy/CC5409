@@ -1,11 +1,8 @@
-[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://ddmvn74k6vugl"]
-
-[ext_resource type="Texture2D" uid="uid://c3xynpg4vqld1" path="res://assets/3d/items/fruitsandvegetables/gltf/grapes01_colortex.png" id="1_pc8m7"]
+[gd_resource type="ArrayMesh" load_steps=3 format=4 uid="uid://ddmvn74k6vugl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1d3hw"]
 resource_name = "Material.001"
 albedo_color = Color(0.62446, 0.180604, 0.406955, 1)
-albedo_texture = ExtResource("1_pc8m7")
 roughness = 0.5
 emission_enabled = true
 

@@ -1,11 +1,8 @@
-[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://cqycwv0pf1thu"]
-
-[ext_resource type="Texture2D" uid="uid://dcrviisaxjq5o" path="res://assets/3d/items/fruitsandvegetables/gltf/lettuce01_colortex.png" id="1_dh5yw"]
+[gd_resource type="ArrayMesh" load_steps=3 format=4 uid="uid://cqycwv0pf1thu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_thydc"]
 resource_name = "Material.001"
 albedo_color = Color(0.659951, 0.974396, 0.512488, 1)
-albedo_texture = ExtResource("1_dh5yw")
 roughness = 0.5
 emission_enabled = true
 

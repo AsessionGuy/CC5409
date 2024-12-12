@@ -6,14 +6,18 @@ var items : Array
 var item_factory : ItemFactory = ItemFactory.new()
 
 func spawn_items() -> void:
-	var available_items = item_factory.get_available_items()
+	var available_items: Array = item_factory.get_available_items()
+	available_items.append_array(available_items)
+	available_items.append_array(available_items)
 	available_items.shuffle()
-	for item in available_items:
-		level.get_shelf().spawn_item(item)
+	var item_idx = 0
+	while item_idx < 60:
+		level.get_shelf().spawn_item(available_items[item_idx])
+		item_idx += 1
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("any_peer", "call_local", "reliable", 3)
 func spawn_item(item_name: String, pos: Vector3) -> void:
-	var item = item_factory.items[item_name].instantiate()
+	var item: Item = item_factory.items[item_name].instantiate()
 	item.setup(1)
 	GameController.level.add_child(item)
 	item.global_position = pos
