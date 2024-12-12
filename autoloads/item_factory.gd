@@ -18,7 +18,13 @@ func _init() -> void:
 		"lemon": preload("res://scenes/items/lemon.tscn"),
 		"toilet_paper": preload("res://scenes/items/toilet_paper.tscn"),
 		"shampoo": preload("res://scenes/items/shampoo.tscn"),
-		"chips": preload("res://scenes/items/chips.tscn")
+		"chips": preload("res://scenes/items/chips.tscn"),
+		"lettuce": preload("res://scenes/items/lettuce.tscn"),
+		"tomato": preload("res://scenes/items/tomato.tscn"),
+		"potato": preload("res://scenes/items/potato.tscn"),
+		"pineapple": preload("res://scenes/items/pineapple.tscn"),
+		"peach": preload("res://scenes/items/peach.tscn"),
+		"onion": preload("res://scenes/items/onion.tscn")
 	}
 
 func get_available_items() -> Array:
