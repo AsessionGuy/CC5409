@@ -6,17 +6,18 @@ var player_list = []
 var level : Level
 var items : Array
 var item_factory : ItemFactory = ItemFactory.new()
-var remaining_start_time = 5
+var remaining_start_time = 10
 var remaining_match_time = 10
 var ui: UserInterface
 var state 
 var winner
+var carts: Array
 
 var items_for_players = null
-var my_items
+var my_items: Array
 var opp_items
 
-
+const ITEM_QUANTITY = 60
 
 var available_items: Array
 var items_setted = false
@@ -30,8 +31,9 @@ var items_setted = false
 enum GameState {ITEM_GENERATION, STARTING, START_TO_ONGOING, ONGOING, ONGOING_TO_FINISHED, FINISHED}
 
 func _ready() -> void:
-	ui = $Ui
-	ui.hide()
+	pass
+	#ui = $Ui
+	#ui.hide()
 
 	#set_process(false)
 
@@ -48,17 +50,12 @@ func _process(delta) -> void:
 			ui.set_start_timer(str(int(remaining_start_time)))
 		
 		GameState.START_TO_ONGOING:
-			
-			if not is_multiplayer_authority():
-				var splited = items_for_players.split(";")
-				
-				items_for_players = splited[1] + ";" + splited[0]
-			
-			
+			Debug.log(items_for_players)
+			Debug.log(items_for_players)
 			var splited = items_for_players.split(";")
 			
 			my_items = splited[0].split(",")
-			opp_items = splited[0].split(",")
+			opp_items = splited[1].split(",")
 			
 			ui.set_items(my_items)
 			
@@ -85,7 +82,7 @@ func _process(delta) -> void:
 			ui.hide_match_timer()
 			
 			if winner:
-				pass
+				ui.set_game_ended_message(winner + " WINS!")
 				
 			else:
 				
@@ -97,8 +94,7 @@ func _process(delta) -> void:
 			
 		GameState.FINISHED:
 			
-			# boton para volver al menu yadayada
-			pass
+			_player._controller = NullPlayerController.new()
 			
 func generate_item_player_list() -> void:
 	
@@ -106,20 +102,20 @@ func generate_item_player_list() -> void:
 	
 	for i in range(0,5):
 		
-		items_for_players += available_items[randi_range(0,60)] + ("," if i !=4 else "")
+		items_for_players += available_items[randi_range(0,ITEM_QUANTITY)] + ("," if i !=4 else "")
 		
 	items_for_players += ";"
 	
 	for i in range(0,5):
 		
-		items_for_players += available_items[randi_range(0,60)] + ("," if i !=4 else "")
+		items_for_players += available_items[randi_range(0,ITEM_QUANTITY)] + ("," if i !=4 else "")
 			
 	
 			
 @rpc("authority","call_remote","reliable")
 func send_item_list(items):
-	
-	items_for_players = items
+	var splited = items.split(";")
+	items_for_players = splited[1] + ";" + splited[0]
 	
 	
 @rpc("authority","call_local","reliable")
@@ -157,13 +153,14 @@ func spawn_items() -> void:
 	available_items.append_array(available_items)
 	available_items.shuffle()
 	var item_idx = 0
-	while item_idx < 60:
+	while item_idx < ITEM_QUANTITY:
 		level.get_shelf().spawn_item(available_items[item_idx])
 		item_idx += 1
 
 @rpc("any_peer", "call_local", "reliable", 3)
 func spawn_item(item_name: String, pos: Vector3) -> void:
 	var item: Item = item_factory.items[item_name].instantiate()
+	item.item_name = item_name
 	item.setup(1)
 	GameController.level.add_child(item)
 	item.global_position = pos
@@ -180,6 +177,7 @@ func spawn_player() -> void:
 		player.rotation.y += deg_to_rad(90)
 		cart.global_position = player.global_position + Vector3(0, 0, 10)
 		cart.rotation.y += deg_to_rad(90)
+		carts.append(cart)
 		if player.is_multiplayer_authority():
 			player.post_setup()
 			
@@ -203,4 +201,17 @@ func get_player_from_index(index: int) -> Player:
 	return level.get_node("Players").get_children()[index]
 		
 func get_cart_from_index(index: int) -> Cart:
-	return level.get_node("Carts").get_children()[index]
+	return carts[index]
+	
+func delete_item(item_name: String) -> void:
+	if item_name in my_items:
+		my_items.erase(item_name)
+		_player._controller.unset_item.rpc()
+	if my_items.is_empty():
+		set_winner.rpc(_player.name)
+	_player._controller.interactable = null
+		
+@rpc("any_peer", "call_local", "reliable")
+func set_winner(player_name: String):
+	winner = player_name
+	state = GameState.ONGOING_TO_FINISHED

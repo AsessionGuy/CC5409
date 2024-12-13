@@ -1,6 +1,6 @@
 [gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://dj33a4h2b0x1g"]
 
-[ext_resource type="Texture2D" uid="uid://cv5l1kfrsuybj" path="res://assets/3d/items/fruitsandvegetables/fbx/peach01_0.png" id="1_cbib0"]
+[ext_resource type="Texture2D" uid="uid://cugsx6gq5eall" path="res://assets/3d/items/fruitsandvegetables/fbx/peach01_0.png" id="1_cbib0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tf2sq"]
 resource_name = "Material"

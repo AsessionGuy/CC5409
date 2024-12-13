@@ -13,8 +13,8 @@ func enter(previous_state_path: String, data := {}) -> void:
 func physics_update(_delta: float) -> void:
 	var speed = player.get_real_velocity().length()
 	
-	if len(player.get_node("CartAnchor").get_children()):
-		finished.emit("WithCartState")
+	if player.has_cart:
+		finished.emit("WithCartState", {"cart_index": player._controller.cart.index})
 	
 	elif player.is_interacting:
 		finished.emit("InteractingWithoutCartState")

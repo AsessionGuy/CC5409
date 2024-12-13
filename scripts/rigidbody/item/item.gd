@@ -5,6 +5,7 @@ class_name Item extends MultiplayerRigidBody3D
 
 var player: Player
 var timer: Timer = Timer.new()
+var item_name: String
 
 func _ready() -> void:
 	add_child(timer)

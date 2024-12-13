@@ -1,6 +1,7 @@
 class_name PlayerController extends Node
 
 @onready var player: Player
+@onready var cart: Cart
 
 @export var move_speed = 100
 @export var tilt_upper_limit := PI / 3.0
@@ -25,9 +26,9 @@ func unhandled_input(event: InputEvent) -> void:
 
 func input(event: InputEvent) -> void:
 	if event.is_action_pressed("run"):
-		move_speed = 200
+		move_speed = 20
 	elif event.is_action_released("run"):
-		move_speed = 100
+		move_speed = 10
 	if event.is_action_pressed("interact"):
 		player.is_interacting = true
 		if interactable:
@@ -57,3 +58,18 @@ func physics_process(_delta: float) -> void:
 @rpc("any_peer","call_local","reliable")
 func reset_interactable() -> void:
 	interactable = null
+
+@rpc("any_peer","call_local","reliable")
+func set_cart(index:int) -> void:
+	player._controller.cart = GameController.get_cart_from_index(index)
+	player.has_cart = true
+
+@rpc("any_peer", "call_local", "reliable")
+func unset_cart() -> void:
+	player.has_cart = false
+	player._controller.cart.unset_player(player.index)
+
+@rpc("any_peer", "call_local", "reliable")
+func unset_item() -> void:
+	player._socket.get_child(0).queue_free()
+	player._controller.interactable = null

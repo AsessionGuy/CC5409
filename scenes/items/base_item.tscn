@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://chfslpkcc4k43"]
+[gd_scene load_steps=2 format=3 uid="uid://cvi3hmx1pc63i"]
 
 [ext_resource type="Script" path="res://scripts/rigidbody/item/item.gd" id="1_mu2ca"]
 

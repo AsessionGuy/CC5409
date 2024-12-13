@@ -1,109 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://c58y4gjibehkw"]
+[gd_scene load_steps=2 format=3 uid="uid://c58y4gjibehkw"]
 
 [ext_resource type="Script" path="res://autoloads/game_controller.gd" id="1_gki5s"]
-[ext_resource type="Script" path="res://scripts/ui/ui.gd" id="2_1umh0"]
-[ext_resource type="Script" path="res://scripts/ui/items_to_pick_container.gd" id="3_pwcev"]
 
 [node name="GameController" type="Node"]
 script = ExtResource("1_gki5s")
 metadata/_edit_horizontal_guides_ = [-1161.0]
 
 [node name="MatchTimer" type="Timer" parent="."]
-wait_time = 20.0
+wait_time = 120.0
 one_shot = true
 
 [node name="MatchStartTimer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
-
-[node name="Ui" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("2_1umh0")
-
-[node name="MatchStartTimerContainer" type="MarginContainer" parent="Ui"]
-layout_mode = 0
-offset_left = 407.0
-offset_top = 270.0
-offset_right = 739.0
-offset_bottom = 359.0
-
-[node name="MatchStartTimerLabel" type="RichTextLabel" parent="Ui/MatchStartTimerContainer"]
-layout_mode = 2
-fit_content = true
-
-[node name="MatchTimerContainer" type="MarginContainer" parent="Ui"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.96
-anchor_bottom = 3.178
-offset_left = 1.0
-offset_top = 85.0
-offset_right = 77.6
-offset_bottom = 20.88
-
-[node name="MatchTimerLabel" type="Label" parent="Ui/MatchTimerContainer"]
-layout_mode = 2
-
-[node name="GameEndedMessageContaner" type="MarginContainer" parent="Ui"]
-layout_mode = 0
-offset_left = 500.0
-offset_top = 221.0
-offset_right = 690.0
-offset_bottom = 284.0
-
-[node name="GameEndedMessage" type="RichTextLabel" parent="Ui/GameEndedMessageContaner"]
-layout_mode = 2
-mouse_force_pass_scroll_events = false
-text = "GAME ENDED"
-fit_content = true
-
-[node name="ItemsToPickContainer" type="GridContainer" parent="Ui"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_bottom = 0.5
-offset_left = 1.0
-offset_right = 1153.0
-offset_bottom = 627.0
-columns = 5
-script = ExtResource("3_pwcev")
-
-[node name="Label" type="Label" parent="Ui/ItemsToPickContainer"]
-layout_mode = 2
-text = "Items to collect: "
-
-[node name="Item1" type="TextureRect" parent="Ui/ItemsToPickContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Item2" type="TextureRect" parent="Ui/ItemsToPickContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Item3" type="TextureRect" parent="Ui/ItemsToPickContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Item4" type="TextureRect" parent="Ui/ItemsToPickContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Item5" type="TextureRect" parent="Ui/ItemsToPickContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 4
 
 [connection signal="timeout" from="MatchTimer" to="." method="call_hide_match_timer"]
 [connection signal="timeout" from="MatchStartTimer" to="." method="call_hide_match_start_timer"]

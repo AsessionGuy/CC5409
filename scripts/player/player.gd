@@ -11,8 +11,10 @@ var id
 @onready var _state_machine: StateMachine = %StateMachine
 @onready var _controller: PlayerController
 @onready var _socket: BoneAttachment3D = $AnimatedPlayer/RootNode/CharacterArmature/Skeleton3D/BoneAttachment3D
+@onready var _cart_anchor: Node3D = $CartAnchor
 
 var is_interacting = false
+var has_cart = false
 
 func _ready() -> void:
 	_camera.clear_current(false)
@@ -29,7 +31,7 @@ func post_setup() -> void:
 
 # Sets online player data, i. e. name, authority
 func set_online_player_data(player_data: Statics.PlayerData) -> void:
-	name = str(player_data.name) if str(player_data.name).is_empty() else str(player_data.index)
+	name = str(player_data.name) if not str(player_data.name).is_empty() else str(player_data.index)
 	index = player_data.index
 	id = player_data.id
 	set_multiplayer_authority(player_data.id)

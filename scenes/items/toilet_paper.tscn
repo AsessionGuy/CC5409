@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://bgw60bejjo8n3"]
+[gd_scene load_steps=6 format=4 uid="uid://c4wx86wo7yvi"]
 
 [ext_resource type="Script" path="res://scripts/rigidbody/item/item.gd" id="1_llroq"]
 [ext_resource type="ArrayMesh" uid="uid://de76kirby5c4m" path="res://resources/items/mesh/toilet_paper.tres" id="2_b04kl"]

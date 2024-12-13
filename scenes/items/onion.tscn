@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://cj3as7q8v2bpu"]
+[gd_scene load_steps=6 format=4 uid="uid://dl7o2ec5mwcm7"]
 
 [ext_resource type="Script" path="res://scripts/rigidbody/item/item.gd" id="1_i8ben"]
 [ext_resource type="ArrayMesh" uid="uid://sluw5btqvg00" path="res://resources/items/mesh/onion_shape.tres" id="2_eeceb"]

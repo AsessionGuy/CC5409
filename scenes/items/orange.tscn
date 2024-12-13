@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://gwv7ur3ysjbk"]
+[gd_scene load_steps=6 format=4 uid="uid://chaxydwua5tet"]
 
 [ext_resource type="Script" path="res://scripts/rigidbody/item/item.gd" id="1_kefrb"]
 [ext_resource type="ArrayMesh" uid="uid://twrs5sutg8ms" path="res://resources/items/mesh/orange_mesh.tres" id="2_3kapr"]

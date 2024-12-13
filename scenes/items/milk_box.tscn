@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://bipqnj44gnv3q"]
+[gd_scene load_steps=6 format=4 uid="uid://cwcq7lktp7laa"]
 
 [ext_resource type="ArrayMesh" uid="uid://p8codu2k7mol" path="res://resources/items/mesh/milk_mesh.tres" id="1_tykj6"]
 [ext_resource type="Script" path="res://scripts/rigidbody/item/item.gd" id="1_x2yhr"]

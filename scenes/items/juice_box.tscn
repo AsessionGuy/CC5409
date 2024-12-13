@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://doesdl03ld63q"]
+[gd_scene load_steps=7 format=4 uid="uid://mbtu57utxlpo"]
 
 [ext_resource type="Material" path="res://assets/3d/items/snackers/gltf/Snackers.material" id="1"]
 [ext_resource type="Script" path="res://scripts/rigidbody/item/item.gd" id="1_swc4n"]

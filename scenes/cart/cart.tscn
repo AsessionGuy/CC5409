@@ -197,7 +197,7 @@ points = PackedVector3Array(-7.74243, -2.10731, -37.8858, -8.48379, -12.4864, -2
 size = Vector3(5.9502, 4.36908, 7.66406)
 
 [node name="shopping_cart" type="VehicleBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.895341, -3.73109)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -9.7)
 collision_layer = 9
 collision_mask = 9
 center_of_mass_mode = 1
@@ -347,11 +347,11 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.98426, 3.72506)
 
 [node name="Area3D" type="Area3D" parent="."]
-collision_layer = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 4)
+collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0159621, 5.01963, 3.74841)
 shape = SubResource("BoxShape3D_qdpuw")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

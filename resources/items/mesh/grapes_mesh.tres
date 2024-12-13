@@ -1,6 +1,6 @@
 [gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://ddmvn74k6vugl"]
 
-[ext_resource type="Texture2D" uid="uid://c3xynpg4vqld1" path="res://assets/3d/items/fruitsandvegetables/gltf/grapes01_colortex.png" id="1_glfb3"]
+[ext_resource type="Texture2D" uid="uid://8j0j53gvw3jp" path="res://assets/3d/items/fruitsandvegetables/gltf/grapes01_colortex.png" id="1_glfb3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1d3hw"]
 resource_name = "Material.001"

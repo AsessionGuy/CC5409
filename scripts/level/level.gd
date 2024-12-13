@@ -4,6 +4,8 @@ var current_shelf = 4
 
 @onready var shelves: Array = get_shelves()
 @onready var player_spawners: Array = get_player_spawners()
+@onready var players: Node3D = %Players
+@onready var carts: Node3D = %Carts
 
 func setup(player_data: Statics.PlayerData) -> void:
 	set_multiplayer_authority(player_data.id)

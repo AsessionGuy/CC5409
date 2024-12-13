@@ -1,10 +1,104 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5hufqs7sbm01"]
+[gd_scene load_steps=5 format=3 uid="uid://b5hufqs7sbm01"]
 
 [ext_resource type="Script" path="res://scenes/multiplayer/main.gd" id="1_ysfbh"]
 [ext_resource type="PackedScene" uid="uid://54vndema1kqn" path="res://scenes/level/level.tscn" id="2_hcp3u"]
+[ext_resource type="Script" path="res://scripts/ui/ui.gd" id="3_xr7kh"]
+[ext_resource type="Script" path="res://scripts/ui/items_to_pick_container.gd" id="4_aoa07"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ysfbh")
 
 [node name="Level" parent="." instance=ExtResource("2_hcp3u")]
 unique_name_in_owner = true
+
+[node name="Ui" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("3_xr7kh")
+
+[node name="MatchStartTimerContainer" type="MarginContainer" parent="Ui"]
+layout_mode = 0
+offset_left = 407.0
+offset_top = 270.0
+offset_right = 739.0
+offset_bottom = 359.0
+
+[node name="MatchStartTimerLabel" type="RichTextLabel" parent="Ui/MatchStartTimerContainer"]
+layout_mode = 2
+fit_content = true
+
+[node name="MatchTimerContainer" type="MarginContainer" parent="Ui"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.96
+anchor_bottom = 3.178
+offset_left = 1.0
+offset_top = 85.0
+offset_right = 77.6
+offset_bottom = 20.88
+
+[node name="MatchTimerLabel" type="Label" parent="Ui/MatchTimerContainer"]
+layout_mode = 2
+
+[node name="GameEndedMessageContaner" type="MarginContainer" parent="Ui"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 221.0
+offset_right = 690.0
+offset_bottom = 284.0
+
+[node name="GameEndedMessage" type="RichTextLabel" parent="Ui/GameEndedMessageContaner"]
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_override_constants/outline_size = 5
+text = "GAME ENDED"
+fit_content = true
+
+[node name="ItemsToPickContainer" type="GridContainer" parent="Ui"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 0.5
+offset_left = 1.0
+offset_right = 1153.0
+offset_bottom = 627.0
+columns = 6
+script = ExtResource("4_aoa07")
+
+[node name="Label" type="Label" parent="Ui/ItemsToPickContainer"]
+layout_mode = 2
+text = "Items to collect: "
+
+[node name="Item1" type="TextureRect" parent="Ui/ItemsToPickContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Item2" type="TextureRect" parent="Ui/ItemsToPickContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Item3" type="TextureRect" parent="Ui/ItemsToPickContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Item4" type="TextureRect" parent="Ui/ItemsToPickContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Item5" type="TextureRect" parent="Ui/ItemsToPickContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4

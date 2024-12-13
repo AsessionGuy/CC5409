@@ -6,6 +6,9 @@ var cart_scene = preload("res://scenes/cart/cart.tscn")
 func _ready() -> void:
 	GameController.set_multiplayer_authority(1)
 	GameController.level = %Level
+	GameController.ui = %Ui
+	GameController.ui.hide()
+	GameController.ui.set_process_input(false)
 	
 	for player_data in Game.players:
 		var level_inst = %Level

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://q7anwyc20bgq"]
+[gd_scene load_steps=7 format=4 uid="uid://cna8tk76e8i7e"]
 
 [ext_resource type="Script" path="res://scripts/rigidbody/item/item.gd" id="1_p2jh6"]
 [ext_resource type="Material" path="res://assets/3d/items/snackers/gltf/Snackers.material" id="1_r5yrk"]
