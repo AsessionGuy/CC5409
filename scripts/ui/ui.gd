@@ -1,4 +1,4 @@
-extends Control
+class_name UserInterface extends Control
 
 @onready var MatchStartTimerLabel: RichTextLabel = $MatchStartTimerContainer/MatchStartTimerLabel
 @onready var MatchTimerLabel: Label = $MatchTimerContainer/MatchTimerLabel
@@ -35,4 +35,8 @@ func set_start_timer(remaining_time: String) -> void:
 
 func set_match_timer(remaining_time: String) -> void:
 	MatchTimerLabel.text = "Game ends in: "+ remaining_time
+	
+
+func set_game_ended_message(message: String) -> void:
+	GameEndedMessageLabel.text = message
 	
