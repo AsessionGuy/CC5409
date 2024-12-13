@@ -1,9 +1,12 @@
-[gd_resource type="ArrayMesh" load_steps=3 format=4 uid="uid://dww554ripijkb"]
+[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://dww554ripijkb"]
+
+[ext_resource type="Texture2D" uid="uid://cpg17ka77ji7j" path="res://assets/3d/items/fruitsandvegetables/gltf/coconut01_colortex.png" id="1_0ow3t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kqgmb"]
 resource_name = "Material.001"
 cull_mode = 2
-albedo_color = Color(0.959933, 0.690147, 0.145526, 1)
+albedo_color = Color(0.774127, 0.643651, 0.461596, 1)
+albedo_texture = ExtResource("1_0ow3t")
 roughness = 0.5
 emission_enabled = true
 

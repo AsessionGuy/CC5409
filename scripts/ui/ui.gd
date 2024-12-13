@@ -3,7 +3,7 @@ class_name UserInterface extends Control
 @onready var MatchStartTimerLabel: RichTextLabel = $MatchStartTimerContainer/MatchStartTimerLabel
 @onready var MatchTimerLabel: Label = $MatchTimerContainer/MatchTimerLabel
 @onready var GameEndedMessageLabel: RichTextLabel = $GameEndedMessageContaner/GameEndedMessage
-
+@onready var ItemsToPickContainer = $ItemsToPickContainer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_process(false)
@@ -11,6 +11,8 @@ func _ready() -> void:
 	MatchTimerLabel.hide()
 	GameEndedMessageLabel.hide()
 
+func set_items(item_list : Array) -> void:
+	ItemsToPickContainer.set_items(item_list)
 
 func hide_start_timer() -> void:
 	MatchStartTimerLabel.hide()
