@@ -1,4 +1,5 @@
 [gd_scene load_steps=76 format=4 uid="uid://xqgj7axeeg8s"]
+[gd_scene load_steps=76 format=4 uid="uid://xqgj7axeeg8s"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_poxi3"]
 [ext_resource type="Script" path="res://scripts/utils/state_machine.gd" id="2_4i2xh"]
@@ -10,6 +11,9 @@
 [ext_resource type="Script" path="res://scripts/player/states/without_cart_state.gd" id="5_ybai7"]
 [ext_resource type="Script" path="res://scripts/player/controllers/null_player_controller.gd" id="7_lehwo"]
 [ext_resource type="Script" path="res://scripts/player/states/interacting_without_cart_state.gd" id="8_73at0"]
+[ext_resource type="Texture2D" uid="uid://djqrydub7qiir" path="res://assets/2d/crosshair.png" id="11_wvr8s"]
+[ext_resource type="AudioStream" uid="uid://dxavivfeg2bpo" path="res://assets/sfx/walking_steps.mp3" id="12_cjqp8"]
+[ext_resource type="AudioStream" uid="uid://dylcj4dxk534m" path="res://assets/sfx/picking_item.mp3" id="13_t0u26"]
 [ext_resource type="Texture2D" uid="uid://djqrydub7qiir" path="res://assets/2d/crosshair.png" id="11_wvr8s"]
 [ext_resource type="AudioStream" uid="uid://dxavivfeg2bpo" path="res://assets/sfx/walking_steps.mp3" id="12_cjqp8"]
 [ext_resource type="AudioStream" uid="uid://dylcj4dxk534m" path="res://assets/sfx/picking_item.mp3" id="13_t0u26"]
@@ -11793,6 +11797,24 @@ size_flags_vertical = 3
 layout_mode = 2
 texture = ExtResource("11_wvr8s")
 stretch_mode = 3
+
+[node name="SFX" type="Node3D" parent="."]
+
+[node name="WalkingSound" type="AudioStreamPlayer3D" parent="SFX"]
+unique_name_in_owner = true
+stream = ExtResource("12_cjqp8")
+volume_db = -5.0
+area_mask = 15
+
+[node name="RunningSound" type="AudioStreamPlayer3D" parent="SFX"]
+unique_name_in_owner = true
+stream = ExtResource("12_cjqp8")
+volume_db = -5.0
+pitch_scale = 1.3
+
+[node name="PickingItemSound" type="AudioStreamPlayer3D" parent="SFX"]
+unique_name_in_owner = true
+stream = ExtResource("13_t0u26")
 
 [node name="SFX" type="Node3D" parent="."]
 

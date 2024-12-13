@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://autoloads/game_controller.gd" id="1_gki5s"]
 [ext_resource type="Script" path="res://scripts/ui/ui.gd" id="2_1umh0"]
 [ext_resource type="Texture2D" uid="uid://k0v12ke2rte" path="res://assets/2d/items/soda_can.png" id="3_g80rg"]
-[ext_resource type="Script" path="res://scripts/ui/items_to_pick_container.gd" id="3_pwcev"]
+[ext_resource type="Script" path="res://autoloads/texture_rect.gd" id="4_yiru6"]
 
 [node name="GameController" type="Node"]
 script = ExtResource("1_gki5s")
@@ -61,49 +61,21 @@ mouse_force_pass_scroll_events = false
 text = "GAME ENDED"
 fit_content = true
 
-[node name="ItemsToPickContainer" type="GridContainer" parent="Ui"]
+[node name="GridContainer" type="GridContainer" parent="Ui"]
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 0.5
-offset_left = 1.0
-offset_right = 1153.0
-offset_bottom = 627.0
+offset_left = 6.0
+offset_top = -18.0
+offset_right = 1926.0
+offset_bottom = 1042.0
 columns = 5
-script = ExtResource("3_pwcev")
 
-[node name="Item1" type="TextureRect" parent="Ui/ItemsToPickContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Item2" type="TextureRect" parent="Ui/ItemsToPickContainer"]
-custom_minimum_size = Vector2(100, 100)
+[node name="TextureRect" type="TextureRect" parent="Ui/GridContainer"]
 layout_mode = 2
 texture = ExtResource("3_g80rg")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Item3" type="TextureRect" parent="Ui/ItemsToPickContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-texture = ExtResource("3_g80rg")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Item4" type="TextureRect" parent="Ui/ItemsToPickContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-texture = ExtResource("3_g80rg")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Item5" type="TextureRect" parent="Ui/ItemsToPickContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-texture = ExtResource("3_g80rg")
-expand_mode = 1
-stretch_mode = 4
+stretch_mode = 2
+script = ExtResource("4_yiru6")
 
 [connection signal="timeout" from="MatchTimer" to="." method="call_hide_match_timer"]
 [connection signal="timeout" from="MatchStartTimer" to="." method="call_hide_match_start_timer"]

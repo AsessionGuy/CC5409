@@ -34,7 +34,7 @@ _surfaces = [{
 }]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rfgnb"]
-size = Vector3(0.694763, 0.494598, 0.108735)
+size = Vector3(0.694763, 0.577865, 0.285009)
 
 [node name="Cookies" type="RigidBody3D"]
 collision_layer = 12
@@ -50,5 +50,5 @@ transform = Transform3D(1.10163, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ll5yi")
 
 [node name="Cookies_Shape" type="CollisionShape3D" parent="."]
-transform = Transform3D(2.21922, 0, 0, 0, 2.21922, 0, 0, 0, 2.21922, 0.00967692, -0.00444549, -0.0037812)
+transform = Transform3D(2.21922, 0, 0, 0, 2.21922, 0, 0, 0, 2.21922, 0.00967692, 0.0879489, 0.0408643)
 shape = SubResource("BoxShape3D_rfgnb")
