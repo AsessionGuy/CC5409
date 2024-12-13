@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://c58y4gjibehkw"]
+
+[ext_resource type="Script" path="res://autoloads/game_controller.gd" id="1_gki5s"]
+[ext_resource type="Script" path="res://scripts/ui/ui.gd" id="2_1umh0"]
+[ext_resource type="Script" path="res://scripts/ui/MatchTimerLabel.gd" id="3_rv0sd"]
+
+[node name="GameController" type="Node"]
+script = ExtResource("1_gki5s")
+
+[node name="MatchTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="MatchStartTimer" type="Timer" parent="."]
+wait_time = 120.0
+
+[node name="Ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_1umh0")
+
+[node name="MatchTimerContainer2" type="MarginContainer" parent="Ui"]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 270.0
+offset_right = 690.0
+offset_bottom = 359.0
+
+[node name="MatchTimerLabel" type="Label" parent="Ui/MatchTimerContainer2"]
+layout_mode = 2
+script = ExtResource("3_rv0sd")
+
+[connection signal="timeout" from="MatchTimer" to="." method="call_hide_match_timer"]
