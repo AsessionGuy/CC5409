@@ -31,7 +31,6 @@ transform = Transform3D(7.80511, 0, 0, 0, 7.80511, 0, 0, 0, 7.80511, 0, 0, 0)
 mesh = ExtResource("2_w165m")
 
 [node name="outline" type="MeshInstance3D" parent="mesh"]
-visible = false
 mesh = SubResource("ArrayMesh_0ymrl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -1,6 +1,6 @@
 [gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://de76kirby5c4m"]
 
-[ext_resource type="Texture2D" uid="uid://b6l8bvsux3xui" path="res://assets/3d/items/toilet_paper_CHAHIN_ROLL_OF_TOILET_PAPER_TEXTURE.jpg" id="1_2evgh"]
+[ext_resource type="Texture2D" uid="uid://dn8qk3otahawd" path="res://assets/3d/items/toilet_paper_CHAHIN_ROLL_OF_TOILET_PAPER_TEXTURE.jpg" id="1_2evgh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3oe3p"]
 resource_name = "Material.000"
