@@ -6,13 +6,14 @@ var timer
 func _ready() -> void:
 	set_process(false)
 	
+
+
+func set_items(list_of_items):
 	
-	# test if it could be done dynamically
-	set_texture_to_item("res://assets/2d/items/soda_can.png", "Item1")
+	for i in range(0,5):
+		
+		set_texture_to_item("res://assets/2d/items/" + list_of_items[i] + ".png","Item" + str(i+1))
 	
-
-
-
 func set_texture_to_item(path:String, item_name: String):
 	
 	var item: TextureRect = self.get_node(item_name)
@@ -22,10 +23,13 @@ func set_texture_to_item(path:String, item_name: String):
 	if item:
 		
 		item.texture = ImageTexture.create_from_image(image)
+
 		
 	else:
 	
 		printerr("The item does not exist")
+		
+	self.show()
 	
 func delete_item(item_name: String):
 	
@@ -36,5 +40,5 @@ func delete_item(item_name: String):
 		item.queue_free()
 		
 	else:
-		pass
+
 		printerr('The item does not exist')

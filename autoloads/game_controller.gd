@@ -12,13 +12,22 @@ var ui: UserInterface
 var state 
 var winner
 
+var items_for_players = null
+var my_items
+var opp_items
+
+
+
+var available_items: Array
+var items_setted = false
+
 @onready var MatchTimer = $MatchTimer
 @onready var MatchStartTimer = $MatchStartTimer
 @onready var MatchStartTimerLabel = $Ui/MatchStartTimerContainer/MatchStartTimerLabel
 @onready var MatchTimerLabel = $Ui/MatchTimerContainer/MatchTimerLabel
 
 
-enum GameState {STARTING, START_TO_ONGOING, ONGOING, ONGOING_TO_FINISHED, FINISHED}
+enum GameState {ITEM_GENERATION, STARTING, START_TO_ONGOING, ONGOING, ONGOING_TO_FINISHED, FINISHED}
 
 func _ready() -> void:
 	ui = $Ui
@@ -40,7 +49,18 @@ func _process(delta) -> void:
 		
 		GameState.START_TO_ONGOING:
 			
-	
+			if not is_multiplayer_authority():
+				var splited = items_for_players.split(";")
+				
+				items_for_players = splited[1] + ";" + splited[0]
+			
+			
+			var splited = items_for_players.split(";")
+			
+			my_items = splited[0].split(",")
+			opp_items = splited[0].split(",")
+			
+			ui.set_items(my_items)
 			
 			ui.hide_start_timer()
 			ui.show_match_timer()
@@ -79,6 +99,32 @@ func _process(delta) -> void:
 			
 			# boton para volver al menu yadayada
 			pass
+			
+func generate_item_player_list() -> void:
+	
+	items_for_players = ""
+	
+	for i in range(0,5):
+		
+		items_for_players += available_items[randi_range(0,60)] + ("," if i !=4 else "")
+		
+	items_for_players += ";"
+	
+	for i in range(0,5):
+		
+		items_for_players += available_items[randi_range(0,60)] + ("," if i !=4 else "")
+			
+	
+			
+@rpc("authority","call_remote","reliable")
+func send_item_list(items):
+	
+	items_for_players = items
+	
+	
+@rpc("authority","call_local","reliable")
+func start_game():
+	state = GameState.STARTING
 	
 	
 @rpc("authority","call_local","unreliable")
@@ -106,7 +152,7 @@ func call_hide_match_timer():
 
 
 func spawn_items() -> void:
-	var available_items: Array = item_factory.get_available_items()
+	available_items= item_factory.get_available_items()
 	available_items.append_array(available_items)
 	available_items.append_array(available_items)
 	available_items.shuffle()
@@ -142,18 +188,16 @@ func start() -> void:
 	if is_multiplayer_authority():
 		spawn_player.rpc()
 		spawn_items()
+		generate_item_player_list()
+		send_item_list.rpc(items_for_players)
+		start_game.rpc()
 		MatchStartTimer.start()
 
-	
-	#set_process(true)
-	state = GameState.STARTING
-	
-
-
-	
 	ui.show()
 	ui.show_start_timer()
-		
+	#set_process(true)
+	
+	
 func get_player_from_index(index: int) -> Player:
 	assert(index < len(level.get_node("Players").get_children()))
 	return level.get_node("Players").get_children()[index]
