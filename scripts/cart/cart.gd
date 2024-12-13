@@ -3,6 +3,8 @@ class_name Cart extends VehicleBody3D
 @onready var cart: MeshInstance3D = $Cart
 @onready var outline: MeshInstance3D = $Cart/Outline
 @onready var _items: Node3D = %items
+@onready var picked_sound: AudioStreamPlayer3D = %PickedSound
+@onready var moving_sound: AudioStreamPlayer3D = %MovingSound
 
 var player: Player
 var index
@@ -15,6 +17,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		send_state.rpc()
+	if linear_velocity.length() > 1:
+		if not moving_sound.playing:
+			moving_sound.play()
+		else:
+			if moving_sound.playing:
+				moving_sound.stop()
 
 func setup(player_data: Statics.PlayerData) -> void:
 	set_online_player_data(player_data)
@@ -44,6 +52,7 @@ func set_player(index: int):
 			player = GameController.get_player_from_index(index)
 			Debug.log("setting item " + name + "with player " + str(index), 1)
 			player._controller.set_cart.rpc()
+			picked_sound.play()
 
 @rpc("any_peer", "call_local", "reliable")
 func unset_player(index: int):

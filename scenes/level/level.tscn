@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bg0uucp760ima" path="res://scenes/level/level_components/fridge.tscn" id="3_i81j3"]
 [ext_resource type="Script" path="res://scripts/utils/player_spawnpoint.gd" id="6_3r81b"]
 [ext_resource type="PackedScene" uid="uid://tsu1ouljepaf" path="res://scenes/level/level_components/checkout_counter.tscn" id="6_eu0ed"]
-[ext_resource type="PackedScene" uid="uid://b3lls3nvg7kyd" path="res://assets/3d/items/soda_can.glb" id="7_dmh2k"]
+[ext_resource type="AudioStream" uid="uid://dtfc3ecku4b7h" path="res://assets/bgm/store.mp3" id="7_sb8ey"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yvl3d"]
 size = Vector3(1000, 2, 1000)
@@ -407,5 +407,9 @@ unique_name_in_owner = true
 [node name="Players" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="soda_can" parent="." instance=ExtResource("7_dmh2k")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 95.5171, 9.72924, 26.118)
+[node name="BGM" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_sb8ey")
+attenuation_model = 3
+volume_db = -10.0
+autoplay = true
+area_mask = 15

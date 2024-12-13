@@ -1,6 +1,7 @@
 class_name InteractingWithoutCartState extends WithoutCartState
 
 @onready var timer: Timer = $Timer
+@onready var picking_sound: AudioStreamPlayer3D = %PickingItemSound
 
 func _ready() -> void:
 	super()
@@ -10,6 +11,7 @@ func _ready() -> void:
 func enter(previous_state_path: String, data := {}) -> void:
 	animation_tree.travel("interacting")
 	timer.start()
+	picking_sound.play()
 
 func physics_update(_delta: float) -> void:
 	if timer.time_left == 0:
