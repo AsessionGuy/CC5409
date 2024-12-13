@@ -8,8 +8,9 @@ var items : Array
 var item_factory : ItemFactory = ItemFactory.new()
 var remaining_start_time = 5
 var remaining_match_time = 10
-var ui
+var ui: UserInterface
 var state 
+var winner
 
 @onready var MatchTimer = $MatchTimer
 @onready var MatchStartTimer = $MatchStartTimer
@@ -62,13 +63,21 @@ func _process(delta) -> void:
 		
 			state = GameState.FINISHED
 			ui.hide_match_timer()
+			
+			if winner:
+				pass
+				
+			else:
+				
+				ui.set_game_ended_message("DRAW")
+				
+			ui.show_game_ended_message()
 	
 	
 			
 		GameState.FINISHED:
-			pass
 			
-		_:
+			# boton para volver al menu yadayada
 			pass
 	
 	
@@ -125,12 +134,12 @@ func spawn_player() -> void:
 			player.post_setup()
 			
 func start() -> void:
-	print("Se entró a start()")
+
 	if is_multiplayer_authority():
 		spawn_player.rpc()
 		spawn_items()
 		MatchStartTimer.start()
-		print("El timer se inició")
+
 	
 	#set_process(true)
 	state = GameState.STARTING
