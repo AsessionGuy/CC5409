@@ -1,7 +1,10 @@
 class_name Item extends MultiplayerRigidBody3D
 
+signal collided
+
 @onready var mesh: MeshInstance3D = $mesh
 @onready var outline: MeshInstance3D = $mesh/outline
+@onready var collision_sound: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
 
 var player: Player
 var timer: Timer = Timer.new()
@@ -11,6 +14,11 @@ func _ready() -> void:
 	timer.wait_time = 1
 	timer.one_shot = true
 	outline.visible = false
+	
+	add_child(collision_sound)
+	collision_sound.stream = preload("res://assets/sfx/item_colission.mp3")
+	connect("collided", Callable(self, "_on_collided"))
+	connect("body_entered", Callable(self, "_on_collided"))
 	
 func set_outline(active: bool):
 	outline.visible = active
@@ -54,3 +62,18 @@ func set_cart(index:int):
 
 func _physics_process(delta: float) -> void:
 	super(delta)
+	
+	
+func _integrate_forces(state) -> void:
+	for i in range(state.get_contact_count()):
+		var contact = state.get_contact_collider_object(i)
+		if contact:
+			emit_signal("collided")
+			
+			
+func _on_body_entered(body: Node) -> void:
+	emit_signal("collided")
+func _on_collided() -> void:
+	if not collision_sound.playing:
+		print("Collided")
+		collision_sound.play()
