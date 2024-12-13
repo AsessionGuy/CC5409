@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://bwgdrcgopd0s1" path="res://resources/theme.tres" id="1_7jjj2"]
 [ext_resource type="Script" path="res://scenes/multiplayer/ui/lobby_player.gd" id="1_thc4c"]
-[ext_resource type="Texture2D" uid="uid://bgkhx1547ogom" path="res://icon.svg" id="2_acr8q"]
+[ext_resource type="Texture2D" uid="uid://w8v2uex0eod0" path="res://icon.svg" id="2_acr8q"]
 
 [node name="LobbyPlayer" type="MarginContainer"]
 offset_right = 144.0

@@ -1,15 +1,16 @@
-- The following models were made by "Poly by Google":
+MODELS
+- Author: "Poly by Google":
 Soda can
 Toilet Paper
 
-- The following models were made by "loafbrr":
+- Author: "loafbrr":
 CerealBox
 JuiceBox
 CookiesSnack
 Chips
 MilkBox
 
-- The following models were made by "sjolle":
+- Author: "sjolle":
 Banana
 Pumpkin
 Orange
@@ -23,5 +24,16 @@ Pineapple
 Potato
 Peach
 Onion
-- The following models were made by "S. Paul Michael":
+- Author: "S. Paul Michael":
 Shampoo
+
+SFX & BGM
+
+- Author: "Sonicorchestra"
+MovingCartSound
+- Author: "freesound_community"
+ItemsCollide
+- Author: "Pelatho"
+Running/Walking
+- Author: "Denis-Pavlov-Music"
+BGM Store
